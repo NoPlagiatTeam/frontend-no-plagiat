@@ -5,7 +5,7 @@ import StatisticGraph from "./StatisticGraph/StatisticGraph";
 import Reference from "./Reference/Reference";
 import Sidebar from "./Sidebar/Sidebar";
 import ModalDashboard from "./ModalDashboard/ModalDashboard";
-import AddUserForm from "./addUserForm/AddUserForm";
+import AddUserForm from "./AddUserForm/AddUserForm";
 import AddWordForm from "./AddWordForm/AddWordForm";
 
 export {
