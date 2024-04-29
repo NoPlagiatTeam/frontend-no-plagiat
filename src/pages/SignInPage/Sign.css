@@ -1,0 +1,86 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.princing-table{
+    /* background: #f8f8f8; */
+    padding: 40px 0px;
+}
+.princing-table .detail{
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.princing-table .detail h2{
+    font-weight: bold;
+    font-size: 20px;
+}
+.princing-table .detail p{
+    font-size: 13px;
+}
+.princing-table .grid{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px 0px;
+    padding: 20px;
+}
+.princing-table .grid .box{
+    width: 250px;
+    border: 1px solid #eee;
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px 5px rgba(0, 0, 0, 0.05);
+}
+.princing-table .grid .box .title{
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #555;
+}
+.princing-table .grid .box .price{
+    margin-bottom: 18px;
+}
+.princing-table .grid .box .price b {
+    display: block;
+    font-size: 30px;
+    margin-bottom: -10px
+}
+.princing-table .grid .box .features > *{
+    color: #555;
+    padding: 8px 0px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2)
+}
+.princing-table .grid .box .button button{
+    width: 100%;
+    margin: 25px 0px 0px;
+    padding: 16px;
+    background: linear-gradient(to right, #5D86FF, #2F58D0);
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.princing-table .grid .box.entreprise{
+    transform: scale(1.1);
+    background: linear-gradient(to right, #3a7bd5, #3a6073);
+    color: #eee;
+}
+.princing-table .grid .box.entreprise .title {
+    color: #eee;
+}
+.princing-table .grid .box.entreprise .price{
+    color: #fff;
+}
+.princing-table .grid .box.entreprise .features > * {
+    color: #fff;
+    border-bottom: 1px solid #eee;
+}
+.princing-table .grid .box.entreprise .button button{
+    background: linear-gradient(to right, #FFAD6F, #FF9F58);
+}
