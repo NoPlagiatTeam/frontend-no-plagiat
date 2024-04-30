@@ -47,6 +47,14 @@ export const pages = [
 
   {
     path: "/team",
-    element: <EquipePage/>,
-  }
+    element: <EquipePage />,
+  },
+];
+
+// Overview Menus
+
+export const overviewMenu = [
+  {
+    title: "Add new team member",
+  },
 ];

@@ -17,22 +17,23 @@ import { MdRestore } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { BsGridFill } from "react-icons/bs";
 import { Sidebar } from "../../components/molecules";
+import { LuUserPlus2 } from "react-icons/lu";
 
 const Dashboard = () => {
-  const Menus = [
-    { title: "Dashboard", icon: <BsGridFill size={24} /> },
-    { title: "Profil", icon: <FaUser size={24} /> },
-    { title: "Facturation", icon: <BsTicketPerforatedFill size={24} /> },
-    { title: "Subscribe", icon: <CgFileDocument size={24} /> },
-    { title: "Equipe", icon: <HiUsers size={24} /> },
-    { title: "Notification", icon: <IoNotifications size={24} /> },
-  ];
-  const [isOpen, setIsOpen] = useState(false);
+  // const Menus = [
+  //   { title: "Overview", icon: <BsGridFill size={24} /> },
+  //   { title: "Profile", icon: <FaUser size={24} /> },
+  //   { title: "Billing", icon: <BsTicketPerforatedFill size={24} /> },
+  //   { title: "Subscription", icon: <CgFileDocument size={24} /> },
+  //   { title: "Team", icon: <HiUsers size={24} /> },
+  //   { title: "Notification", icon: <IoNotifications size={24} /> },
+  // ];
+  const [isOpen, setIsOpen] = useState(true);
   const [openMemberModal, setOpenMemberModal] = useState(false);
   const [openWordModal, setOpenWordModal] = useState(false);
 
   return (
-    <div className="bg-white">
+    <div className="h-screen bg-white flex">
       {openMemberModal && (
         <ModalDashboard
           card={
@@ -49,14 +50,300 @@ const Dashboard = () => {
       )}
       <Sidebar setOpen={setIsOpen} open={isOpen} itempage={0} />
       <div
-        className={`p-7 bg-white  font-normal flex-1 h-screen text-gray-600 ${
-          isOpen ? "md:ml-72" : ""
-        } ${!isOpen ? "md:ml-20" : ""}`}
+        className={`overflow-scroll overflow-y-scroll flex flex-col items-center w-full pt-8`}
       >
-        <p1 className="text-2xl font-bold">Dashboard</p1>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
 
-        <div className="flex flex-wrap justify-center  font-nunito">
-          <div onClick={() => setOpenMemberModal(true)} className="pr-5 pl-5 ">
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+
+          <div className="cursor-pointer flex items-start gap-3 w-full rounded-lg bg-gray-50 border border-gray-400 p-3">
+            <div className=" w-12 h-12 rounded-full bg-gray-100 flex flex-col items-center justify-center">
+              <LuUserPlus2 size={20} />
+            </div>
+            <div>
+              <h1 className="text-md text-gray-800">Add new member</h1>
+              <p className="text-sm text-gray-400">
+                it is possible to add a new member to a team
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="flex flex-wrap justify-center  font-nunito">
+          <div onClick={() => setOpenMemberModal(false)} className="pr-5 pl-5 ">
             <a
               href="#"
               className="w-full sm:w-auto p-5 hover:bg-blue-100 focus:outline-none text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 "
@@ -183,8 +470,8 @@ const Dashboard = () => {
               </div>
             </a>
           </div>
-        </div>
-      </div>{" "}
+        </div> */}
+      </div>
     </div>
   );
 };

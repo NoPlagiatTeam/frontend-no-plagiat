@@ -1,105 +1,83 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { CgFileDocument } from "react-icons/cg";
-import { HiUsers } from "react-icons/hi2";
-import { FaUser } from "react-icons/fa";
-import { BsTicketPerforatedFill } from "react-icons/bs";
-import { IoNotifications , IoLogOut } from "react-icons/io5";
-import { BsGridFill } from "react-icons/bs";
+import { TfiCreditCard } from "react-icons/tfi";
+import { LuUser2 } from "react-icons/lu";
+import { MdOutlineSubscriptions } from "react-icons/md";
+import { AiOutlineTeam } from "react-icons/ai";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { FiLogOut } from "react-icons/fi";
 
 import { SecondLogo } from "../../../assets";
-import { FaAngleLeft } from "react-icons/fa6";
+import { Avatar } from "../../atoms";
 
 const Sidebar = ({ setOpen, open, itempage }) => {
   const Menus = [
-    { title: "Dashboard", icon: <BsGridFill size={24} />, link: "/dashboard" },
-    { title: "Profil", icon: <FaUser size={24} />, link: "/profile" },
     {
-      title: "Facturation",
-      icon: <BsTicketPerforatedFill size={24} />,
+      title: "Overview",
+      icon: <LuLayoutDashboard size={24} />,
+      link: "/dashboard",
+    },
+    { title: "Profile", icon: <LuUser2 size={24} />, link: "/profile" },
+    {
+      title: "Billing",
+      icon: <TfiCreditCard size={24} />,
       link: "/facture",
     },
     {
-      title: "Subscribe",
-      icon: <CgFileDocument size={24} />,
+      title: "Subscription",
+      icon: <MdOutlineSubscriptions size={24} />,
       link: "/souscription",
     },
-    { title: "Equipe", icon: <HiUsers size={24} />, link: "/team" },
-
+    { title: "Team", icon: <AiOutlineTeam size={24} />, link: "/team" },
   ];
 
   const handleMenuClick = (link) => {
     window.location.href = link; // Redirection vers la page liée
   };
   return (
-    <div className="group fixed left-0 top-0 z-10">
+    <div>
       <div
-        className={`${open ? "w-60" : "w-20"
-          } h-screen duration-300  bg-white dark:bg-dark-white dark:text-gray-800 relative   shadow-xl`}
+        className={`w-80 h-screen bg-white border-r border-gray-200 flex flex-col justify-between  pb-12`}
       >
-        <FaAngleLeft size={30} className={`absolute cursor-pointer p-2 bg-slate-100 rounded-full -right-3 top-9 w-7 ${!open && "rotate-180"
-          }`}
-
-          onClick={() => setOpen(!open)}
-
-          alt="Toggle Menu" />,
-        {/* <img
-          src="./src/assets/control.png"
-          className={`absolute cursor-pointer rounded-full -right-3 top-9 w-7 border-2 dark:border-dark-purple ${
-            !open && "rotate-180"
-          }`}
-          onClick={() => setOpen(!open)}
-          alt="Toggle Menu"
-        /> */}
-        <div className="flex gap-x-4 pt-8">
-          {open && (
-            <img className="w-80 pl-1" src={SecondLogo} alt="logo inspector" />
-          )}
-        </div>
-        <ul className="pt-6 relative m-0">
+        <ul className="px-4 py-8">
+          <div className="flex gap-x-4 pb-8">
+            <img className="px-2" src={SecondLogo} alt="logo inspector" />
+          </div>
           {Menus.map((menu, index) => (
-            <li
-              key={index}
-              className={`h-14 w-30 text-gray-800 text-sm flex items-center p-5 gap-x-4 cursor-pointer hover:text-orange-500 hover:bg-gradient-to-r from-orange-200 via-white to-white rounded-md ${menu.gap ? "mt-9" : "mt-2"
-                } ${index === itempage &&
-                "text-orange-500 bg-gradient-to-r from-orange-200 via-white to-white rounded-md"
-                } ${!open && "p-3"}`}
-              onClick={() => handleMenuClick(menu.link)} // Redirection vers l'URL spécifiée dans le menu
-            >
-              <div className="pl-4 pt-2 ">{menu.icon}</div>
-              <span
-                className={`${!open && "hidden"
-                  } origin-left duration-200 text-base`}
+            <div className="flex  items-center gap-1">
+              {index === itempage && (
+                <div className="h-6 w-2 bg-orange-400 rounded-full"></div>
+              )}
+              <div
+                key={index}
+                className={`px-3 py-2 w-full text-gray-800 text-sm flex items-center p-5 gap-x-4 cursor-pointer  hover:bg-gray-100 rounded-lg ${
+                  menu.gap ? "mt-9" : "mt-2"
+                } ${index === itempage && "bg-gray-100 rounded-lg"} ${
+                  !open && "p-3"
+                }`}
+                onClick={() => handleMenuClick(menu.link)} // Redirection vers l'URL spécifiée dans le menu
               >
-                {menu.title}
-              </span>
-            </li>
+                <span className="">{menu.icon}</span>
+                <span
+                  className={`${
+                    !open && "hidden"
+                  } origin-left duration-200 text-base`}
+                >
+                  {menu.title}
+                </span>
+              </div>
+            </div>
           ))}
         </ul>
-
-        <div>
-          <div className="absolute bottom-0 flex flex-row pl-6 pb-4  cursor-pointer ">
-            <img
-              className="w-10 h-10 rounded-full bg-purple-400 "
-              src="/src/assets/images/profil.png"
-              alt="Rounded avatar"
-            />
-            <div className={`${!open && "hidden"} origin-left duration-200 text-base flex flex-col pl-2`}>
-              <div>Easin Arafat</div>
-              <div className="text-gray-400">Free Account</div>
-
-            </div>
-            <div>
-
-              {open && <div className="pl-5 pt-2"><IoLogOut  size={30} color="gray"/></div>}
-            </div>
+        <div className="flex flex-col items-center mx-6 gap-3">
+          <div className=" flex items-center gap-4 border-b border-gray-100 py-3">
+            <Avatar image="/" />
+            <h1 className="text-sm text-gray-500">yannfonkoue@gmail.com</h1>
           </div>
-        </div>
-
-
-      {!open && <div className="absolute bottom-0 flex flex-row pl-6  p-5"></div>}
-        <div>
-          
+          <div className="flex items-center cursor-pointer w-full  gap-3  px-3 hover:bg-gray-100 rounded-lg  py-2">
+            <FiLogOut size={24} />
+            <h1>Sign out</h1>
+          </div>
         </div>
       </div>
     </div>
