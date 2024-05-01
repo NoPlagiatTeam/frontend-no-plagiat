@@ -5,15 +5,13 @@ import { CustomInput } from "../../components/atoms";
 import { Sidebar } from "../../components/molecules";
 
 const ProfilPage = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   return (
-    <div className="bg-white">
+    <div className="bg-white h-screen flex">
       <Sidebar setOpen={setIsOpen} open={isOpen} itempage={1} />
 
       <div
-        className={`p-7 bg-white  font-normal flex-1 h-screen text-gray-600 ${
-          isOpen ? "md:ml-72" : ""
-        } ${!isOpen ? "md:ml-20" : ""}`}
+        className={`overflow-scroll overflow-y-scroll flex flex-col items-center w-full py-8`}
       >
         <div class="text-gray-600 body-font bg-white">
           <div class="container flex flex-wrap px-5 py-24 mx-auto items-center">

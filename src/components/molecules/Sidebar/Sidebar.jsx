@@ -9,6 +9,7 @@ import { FiLogOut } from "react-icons/fi";
 
 import { SecondLogo } from "../../../assets";
 import { Avatar } from "../../atoms";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ setOpen, open, itempage }) => {
   const Menus = [
@@ -40,9 +41,9 @@ const Sidebar = ({ setOpen, open, itempage }) => {
         className={`w-80 h-screen bg-white border-r border-gray-200 flex flex-col justify-between  pb-12`}
       >
         <ul className="px-4 py-8">
-          <div className="flex gap-x-4 pb-8">
+          <Link to="/" className="pb-8">
             <img className="px-2" src={SecondLogo} alt="logo inspector" />
-          </div>
+          </Link>
           {Menus.map((menu, index) => (
             <div className="flex  items-center gap-1">
               {index === itempage && (
@@ -72,7 +73,7 @@ const Sidebar = ({ setOpen, open, itempage }) => {
         <div className="flex flex-col items-center mx-6 gap-3">
           <div className=" flex items-center gap-4 border-b border-gray-100 py-3">
             <Avatar image="/" />
-            <h1 className="text-sm text-gray-500">yannfonkoue@gmail.com</h1>
+            <h1 className="text-sm text-gray-500">example@gmail.com</h1>
           </div>
           <div className="flex items-center cursor-pointer w-full  gap-3  px-3 hover:bg-gray-100 rounded-lg  py-2">
             <FiLogOut size={24} />

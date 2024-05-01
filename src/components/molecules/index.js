@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import ModalDashboard from "./ModalDashboard/ModalDashboard";
 import AddUserForm from "./AddUserForm/AddUserForm";
 import AddWordForm from "./AddWordForm/AddWordForm";
+import OverviewCard from "./OverviewCard/OverviewCard";
 
 export {
   NavBar,
@@ -18,4 +19,5 @@ export {
   ModalDashboard,
   AddUserForm,
   AddWordForm,
+  OverviewCard,
 };
