@@ -8,6 +8,8 @@ import ModalDashboard from "./ModalDashboard/ModalDashboard";
 import AddUserForm from "./AddUserForm/AddUserForm";
 import AddWordForm from "./AddWordForm/AddWordForm";
 import OverviewCard from "./OverviewCard/OverviewCard";
+import ProfileInfo from "./profile/ProfileInfo";
+import updatePassword from "./profile/UpdatePassword.jsx";
 
 export {
   NavBar,
@@ -20,4 +22,6 @@ export {
   AddUserForm,
   AddWordForm,
   OverviewCard,
+  ProfileInfo,
+  updatePassword
 };

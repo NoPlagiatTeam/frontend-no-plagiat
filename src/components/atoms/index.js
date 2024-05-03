@@ -11,6 +11,7 @@ import CustomInput from "./CustomInput/CustomInput";
 import Errorbar from "./Errorbar/Errorbar";
 import Avatar from "./Avatar/Avatar";
 import UserInput from "./UserInput/UserInput";
+import AvatarName from "./Avatar/AvatarName";
 import Button from "./Button/Button";
 
 export {
@@ -27,4 +28,5 @@ export {
   Errorbar,
   Avatar,
   UserInput,
+  AvatarName
 };

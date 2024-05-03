@@ -14,6 +14,7 @@ import URL_SERVER from "../../services/routes";
 const SignInPage = () => {
   // state
   const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [erreur, setErreur] = useState({ isErreur: false, message: "" });
 
@@ -28,12 +29,14 @@ const SignInPage = () => {
       const user = {
         nom: userName,
         password: userPassword,
+        email: userEmail,
         credit: 6000,
       };
       if (checkPassword(userPassword)) {
-        resetInputValue();
-        await createUser(URL_SERVER + routes[4].path, user);
+        const response = await createUser(URL_SERVER + routes[4].path, user);
+        console.log(response.data)
         navigate("/login");
+        resetInputValue();
       } else {
         setErreur({
           isErreur: true,
@@ -61,9 +64,9 @@ const SignInPage = () => {
         <div className=" lg:w-1/3 p-10 ">
           <div className="container flex justify-center items-center ">
             <img
-              src={SecondLogo}
-              className="w-247 h-53 pb-20"
-              alt="Phone image"
+                src={SecondLogo}
+                className="w-247 h-53 pb-20"
+                alt="Phone image"
             />
           </div>
           <button className="container flex justify-center items-center mb-5 ">
@@ -72,34 +75,42 @@ const SignInPage = () => {
 
           <div className="pb-6">
             <CustomInput
-              type="text"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              placeholder="nom d'utilisateur"
-              icon={<FiUser />}
-              name="Nom d’utilisateur"
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                placeholder="Entrez votre nom d'utilisateur"
+                icon={<FiUser/>}
+                name="Nom d’utilisateur"
             />
           </div>
-
           <div className="pb-9">
             <CustomInput
-              type="password"
-              value={userPassword}
-              onChange={(e) => setUserPassword(e.target.value)}
-              placeholder="mot de passe"
-              icon={<IoMdLock />}
-              name="Mot de passe"
+                type="text"
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+                placeholder="entrez votre mail"
+                icon={<IoMdLock/>}
+                name="Email"
             />
           </div>
-
+          <div className="pb-9">
+            <CustomInput
+                type="password"
+                value={userPassword}
+                onChange={(e) => setUserPassword(e.target.value)}
+                placeholder="Entrez votre mot de passe"
+                icon={<IoMdLock/>}
+                name="Mot de passe"
+            />
+          </div>
           <div className="group relative flex justify-center pb-6">
             {" "}
             <button
-              disabled={inputValues.includes("") ? true : false}
-              onClick={createUserHandler}
-              className={`relative rounded-lg ${
-                inputValues.includes("") ? "bg-orange-300" : "bg-orange-500"
-              } px-7 py-4 text-white w-full`}
+                disabled={inputValues.includes("") ? true : false}
+                onClick={createUserHandler}
+                className={`relative rounded-lg ${
+                    inputValues.includes("") ? "bg-orange-300" : "bg-orange-500"
+                } px-7 py-4 text-white w-full`}
             >
               S’inscrire
             </button>
@@ -107,7 +118,7 @@ const SignInPage = () => {
 
           <div className="flex items-center pb-6">
             <div className="flex-1 h-0 border-t border-gray-400"></div>
-            <div className="mx-4">OU </div>
+            <div className="mx-4">OU</div>
             <div className="flex-1 h-0 border-t border-gray-400"></div>
           </div>
 
