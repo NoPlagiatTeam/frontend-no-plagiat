@@ -38,7 +38,7 @@ const Sidebar = ({ setOpen, open, itempage }) => {
   return (
     <div>
       <div
-        className={`w-80 h-screen bg-white border-r border-gray-200 flex flex-col justify-between  pb-12`}
+        className={`md:w-60 w-80 h-screen bg-white border-r border-gray-200 flex flex-col justify-between  pb-12`}
       >
         <ul className="px-4 py-8">
           <Link to="/" className="pb-8">
@@ -51,7 +51,7 @@ const Sidebar = ({ setOpen, open, itempage }) => {
               )}
               <div
                 key={index}
-                className={`px-3 py-2 w-full text-gray-800 text-sm flex items-center p-5 gap-x-4 cursor-pointer  hover:bg-gray-100 rounded-lg ${
+                className={` md:p-2 px-3 py-2 w-full text-gray-800 text-sm flex items-center p-5 gap-x-4 cursor-pointer  hover:bg-gray-100 rounded-lg ${
                   menu.gap ? "mt-9" : "mt-2"
                 } ${index === itempage && "bg-gray-100 rounded-lg"} ${
                   !open && "p-3"
