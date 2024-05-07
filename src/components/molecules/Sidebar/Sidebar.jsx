@@ -9,9 +9,16 @@ import { FiLogOut } from "react-icons/fi";
 
 import { SecondLogo } from "../../../assets";
 import { Avatar } from "../../atoms";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
+import { useGetStoreData } from "../../../hooks/useGetStoreData";
 
 const Sidebar = ({ setOpen, open, itempage }) => {
+  // states
+  const userData = useGetStoreData("user");
+
+  // hooks
+  const navigate = useNavigate();
+
   const Menus = [
     {
       title: "Overview",
@@ -35,6 +42,12 @@ const Sidebar = ({ setOpen, open, itempage }) => {
   const handleMenuClick = (link) => {
     window.location.href = link; // Redirection vers la page liée
   };
+
+  const signOutHandler = () => {
+    localStorage.clear("user");
+    navigate("/");
+  };
+
   return (
     <div>
       <div
@@ -71,11 +84,14 @@ const Sidebar = ({ setOpen, open, itempage }) => {
           ))}
         </ul>
         <div className="flex flex-col items-center mx-6 gap-3">
-          <div className=" flex items-center gap-4 border-b border-gray-100 py-3">
-            <Avatar image="/" />
-            <h1 className="text-sm text-gray-500">example@gmail.com</h1>
+          <div className=" flex items-center w-full gap-4 border-b border-gray-100 py-3">
+            <Avatar image={userData.image} userName={userData.nom} />
+            <h1 className="text-sm text-gray-500">@{userData.nom}</h1>
           </div>
-          <div className="flex items-center cursor-pointer w-full  gap-3  px-3 hover:bg-gray-100 rounded-lg  py-2">
+          <div
+            onClick={signOutHandler}
+            className="flex items-center cursor-pointer w-full  gap-3  px-3 hover:bg-gray-100 rounded-lg  py-2"
+          >
             <FiLogOut size={24} />
             <h1>Sign out</h1>
           </div>

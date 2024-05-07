@@ -14,6 +14,7 @@ import {
   Uploadpage,
 } from "../pages";
 import EquipePage from "../pages/TeamPage/TeamPage";
+import AuthChecker from "../utils/AuthChecker";
 
 // pages
 export const pages = [
@@ -23,7 +24,7 @@ export const pages = [
   },
   {
     path: "/results",
-    element: <Resultpage />,
+    element: <AuthChecker element={<Resultpage />} />,
   },
   {
     path: "/login",
@@ -35,24 +36,24 @@ export const pages = [
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: <AuthChecker element={<Dashboard />} />,
   },
   {
     path: "/profile",
-    element: <ProfilPage />,
+    element: <AuthChecker element={<ProfilPage />} />,
   },
   {
     path: "/facture",
-    element: <FacturationPage />,
+    element: <AuthChecker element={<FacturationPage />} />,
   },
   {
     path: "/souscription",
-    element: <SouscriptionPage />,
+    element: <AuthChecker element={<SouscriptionPage />} />,
   },
 
   {
     path: "/team",
-    element: <EquipePage />,
+    element: <AuthChecker element={<EquipePage />} />,
   },
 ];
 
