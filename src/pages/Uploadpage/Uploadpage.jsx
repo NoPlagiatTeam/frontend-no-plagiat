@@ -6,8 +6,9 @@ import { routes } from "../../services/routes";
 import { storageData } from "../../utils/storageData";
 import { useGetStoreData } from "../../hooks/useGetStoreData";
 
-import { Modal, NavBar } from "../../components/molecules";
+import { Modal, ModalDashboard, NavBar } from "../../components/molecules";
 import {
+  AuthCard,
   BigText,
   ButtonIcon,
   InputCheck,
@@ -40,9 +41,11 @@ const Uploadpage = () => {
     "Document processing ..."
   );
   const [textPlagie, setTextPlagie] = useState(0);
+  const [isShowAuthModal, setIsShowAuthModal] = useState(false);
 
   // custom hook
   let results = useGetStoreData("result");
+  const userData = useGetStoreData("user");
   let resData;
 
   // checkPlagiarismHandler
@@ -245,6 +248,15 @@ const Uploadpage = () => {
     }
   }, [pourcentLoader, setPourcentLoader]);
 
+  // authentication controller
+  const authenticationHandler = () => {
+    if (userData) {
+      checkPlagiarismHandler();
+    } else {
+      setIsShowAuthModal(true);
+    }
+  };
+
   return (
     <React.Fragment>
       <div className={` ${darkCtx.isDark ? "text-white" : "text-gray-600"}`}>
@@ -294,6 +306,10 @@ const Uploadpage = () => {
                       <p className=" text-gray-600 px-12">
                         {erreur ? (
                           <span className="text-red-600">{erreur}</span>
+                        ) : results.nbmot > 3000 ? (
+                          <span>
+                            Your document is too large, please change!
+                          </span>
                         ) : (
                           results.text
                         )}
@@ -301,6 +317,9 @@ const Uploadpage = () => {
                     ) : (
                       <span>Verifying...</span>
                     )}
+                    {/* {results.nbmot > 3000 && (
+                      
+                    )} */}
                   </h1>
                 )}
               </div>
@@ -344,11 +363,15 @@ const Uploadpage = () => {
                 <Text>
                   <h1 className="text-start text-[12px] py-3">
                     Words{" "}
-                    {(files.length > 0 || link.length > 0) && !erreur
+                    {(files.length > 0 || link.length > 0) &&
+                    results.nbmot < 3000 &&
+                    !erreur
                       ? results.nbmot
                       : "0"}
                     /3000 |{" "}
-                    {(files.length > 0 || link.length > 0) && !erreur
+                    {(files.length > 0 || link.length > 0) &&
+                    results.nbmot < 3000 &&
+                    !erreur
                       ? results.page
                       : "0"}{" "}
                     pages
@@ -356,15 +379,19 @@ const Uploadpage = () => {
                 </Text>
                 <span className="flex justify-center">
                   <ButtonIcon
-                    onClick={checkPlagiarismHandler}
+                    onClick={authenticationHandler}
                     title="Check plagiarism"
                     bg={
-                      files.length > 0 || link.length > 0
+                      (files.length > 0 || link.length > 0) &&
+                      results.nbmot < 3000
                         ? "bg-orange-600"
                         : "bg-orange-400"
                     }
                     diseable={
-                      files.length > 0 || link.length > 0 ? false : true
+                      (files.length > 0 || link.length > 0) &&
+                      results.nbmot < 3000
+                        ? false
+                        : true
                     }
                   />
                 </span>
@@ -380,6 +407,13 @@ const Uploadpage = () => {
         plagiatText={textPlagie}
         loading={pourcentLoader}
       />
+      {isShowAuthModal && (
+        <ModalDashboard
+          card={
+            <AuthCard closeModalHandler={() => setIsShowAuthModal(false)} />
+          }
+        />
+      )}
     </React.Fragment>
   );
 };
