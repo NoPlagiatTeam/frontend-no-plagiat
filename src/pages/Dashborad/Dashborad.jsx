@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { OverviewCard } from "../../components/molecules";
-
 import { Sidebar } from "../../components/molecules";
 import { overviewMenu } from "../../constants/constants";
 

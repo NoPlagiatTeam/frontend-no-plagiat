@@ -12,6 +12,7 @@ import Errorbar from "./Errorbar/Errorbar";
 import Avatar from "./Avatar/Avatar";
 import UserInput from "./UserInput/UserInput";
 import Button from "./Button/Button";
+import AuthCard from "./AuthCard/AuthCard";
 
 export {
   ButtonIcon,
@@ -27,4 +28,6 @@ export {
   Errorbar,
   Avatar,
   UserInput,
+  Button,
+  AuthCard,
 };
