@@ -5,15 +5,6 @@ function UpdatePassword() {
     return (
         <div className={`flex flex-col md:w-1/2 md:pl-12`}>
             <div className={`bg-white p-10`}>
-                <div className={`container flex justify-center items-center `}>
-                    <div className={`group relative flex justify-center w-full pb-4`}>
-                        {" "}
-                        <button
-                            className={`relative rounded-lg border border-orange-500 px-7 py-4 text-orange-500 w-full `}>
-                            S'inscrire
-                        </button>
-                    </div>
-                </div>
                 <div className={`container flex justify-center items-center `}></div>
                 <div className={`pb-9`}>
                     <CustomInput
