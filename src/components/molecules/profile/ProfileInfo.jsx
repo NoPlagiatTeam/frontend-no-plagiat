@@ -35,11 +35,11 @@ function ProfileInfo() {
             </div>
             <div className="flex flex-wrap py-1">
                 <div className="pr-6 md:pr-10 pb-2  text-gray-400">Mots totaux :</div>
-                <div>20000</div>
+                <div>{userData.credit}</div>
             </div>
             <div className="flex flex-wrap py-1">
                 <div className="pr-6 md:pr-10 pb-2  text-gray-400">Mots utilisés :</div>
-                <div>1500</div>
+                <div>{userData.creditRestant}</div>
             </div>
         </div>
     );
