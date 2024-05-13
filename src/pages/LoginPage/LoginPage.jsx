@@ -39,6 +39,7 @@ const LoginPage = () => {
       } else if (response.data) {
         userCtx.setUser(response.data);
         storageData(response.data, "user");
+        console.log(response.data);
         navigate("/");
       }
     } catch (e) {
