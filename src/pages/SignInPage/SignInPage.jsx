@@ -15,6 +15,7 @@ import { ProgressStep } from "../../components/molecules";
 const SignInPage = () => {
   // state
   const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [erreur, setErreur] = useState({ isErreur: false, message: "" });
   const [step, setStep] = useState(1);
@@ -30,6 +31,7 @@ const SignInPage = () => {
     try {
       const user = {
         nom: userName,
+        email: userEmail,
         password: userPassword,
         credit: 6000,
       };
@@ -57,6 +59,7 @@ const SignInPage = () => {
   const resetInputValue = () => {
     setUserName("");
     setUserPassword("");
+    setUserEmail("");
   };
 
   const subscriptionHandler = async () => {
@@ -108,6 +111,17 @@ const SignInPage = () => {
                 placeholder="nom d'utilisateur"
                 icon={<FiUser />}
                 name="Nom d’utilisateur"
+              />
+            </div>
+
+            <div className="pb-6">
+              <CustomInput
+                type="text"
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+                placeholder="Email"
+                icon={<FiUser />}
+                name="Email"
               />
             </div>
 
