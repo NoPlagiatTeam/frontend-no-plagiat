@@ -14,7 +14,7 @@ import { storageData } from "../../utils/storageData";
 
 const LoginPage = () => {
   // state
-  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [erreur, setErreur] = useState({ isErreur: false, message: "" });
 
@@ -22,23 +22,25 @@ const LoginPage = () => {
   const userCtx = useUser();
 
   const navigate = useNavigate();
-  const inputValues = [userName, userPassword];
+  const inputValues = [userEmail, userPassword];
 
   // handlers
   const authenticateUserHandler = async () => {
     const user = {
-      nom: userName,
+      email: userEmail,
       password: userPassword,
     };
 
     try {
       const response = await authUser(URL_SERVER + routes[5].path, user);
+      console.log(response);
       resetInputHandler();
       if (response.message && !response.data) {
         setErreur({ isErreur: true, message: response.message });
       } else if (response.data) {
         userCtx.setUser(response.data);
         storageData(response.data, "user");
+        storageData(response.token, "token");
         navigate("/");
       }
     } catch (e) {
@@ -68,12 +70,12 @@ const LoginPage = () => {
 
           <div class="pb-6">
             <CustomInput
-              type="text"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              placeholder="Eva"
+              type="email"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+              placeholder="example@example.com"
               icon={<FiUser />}
-              name="Username"
+              name="Email"
             />
           </div>
 

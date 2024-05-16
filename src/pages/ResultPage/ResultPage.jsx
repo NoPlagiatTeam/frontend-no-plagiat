@@ -26,24 +26,29 @@ const Resultpage = () => {
   const text = statData.text.split(" ");
 
   // download pdf rapport
+ 
+  
+
   const generatePDF = () => {
-    const input = document.getElementById("pdf-content");
-    setIsLoading(true);
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPdf();
-      pdf.addImage(
-        imgData,
-        "PNG",
-        0,
-        0,
-        pdf.internal.pageSize.getWidth(),
-        pdf.internal.pageSize.getHeight()
-      );
-      setIsLoading(false);
-      pdf.save("rapport-NoPlagiat-" + getDate());
-    });
+      const input = document.getElementById("pdf-content");
+  
+      const contentWidth = input.offsetWidth;
+      const contentHeight = input.offsetHeight;
+  
+      setIsLoading(true);
+
+      html2canvas(input, { scrollY: -window.scrollY, height: contentHeight }).then((canvas) => {
+          const imgData = canvas.toDataURL("image/png");
+  
+          const pdf = new jsPdf('p', 'pt', [contentWidth, contentHeight]);
+          pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight);
+
+          setIsLoading(false);
+          pdf.save("rapport-NoPlagiat-" + getDate());
+      });
   };
+  
+
 
   return (
     <React.Fragment>
@@ -81,9 +86,7 @@ const Resultpage = () => {
                   <span
                     key={index}
                     className={
-                      lowerCase(plagiarizedPhrases).includes(
-                        phrase.toLowerCase()
-                      )
+                      plagiarizedPhrases.includes(phrase)
                         ? "bg-red-400 text-gray-100"
                         : "text-gray-600"
                     }

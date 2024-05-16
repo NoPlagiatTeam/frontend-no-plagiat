@@ -9,8 +9,10 @@ import AddUserForm from "./AddUserForm/AddUserForm";
 import AddWordForm from "./AddWordForm/AddWordForm";
 import OverviewCard from "./OverviewCard/OverviewCard";
 import CardWrapper from "./CardWrapper/CardWrapper";
+
 import ProfileInfo from "./profile/ProfileInfo";
 import UpdatePassword from "./profile/UpdatePassword";
+
 
 export {
   NavBar,
