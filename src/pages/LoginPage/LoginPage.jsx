@@ -33,13 +33,14 @@ const LoginPage = () => {
 
     try {
       const response = await authUser(URL_SERVER + routes[5].path, user);
+      console.log(response);
       resetInputHandler();
       if (response.message && !response.data) {
         setErreur({ isErreur: true, message: response.message });
       } else if (response.data) {
         userCtx.setUser(response.data);
         storageData(response.data, "user");
-        console.log(response.data);
+        storageData(response.token, "token");
         navigate("/");
       }
     } catch (e) {

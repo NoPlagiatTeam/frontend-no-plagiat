@@ -81,9 +81,7 @@ const Resultpage = () => {
                   <span
                     key={index}
                     className={
-                      lowerCase(plagiarizedPhrases).includes(
-                        phrase.toLowerCase()
-                      )
+                      plagiarizedPhrases.includes(phrase)
                         ? "bg-red-400 text-gray-100"
                         : "text-gray-600"
                     }

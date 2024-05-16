@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetStoreData } from "../hooks/useGetStoreData";
+import { isTokenExpired } from "./checkValidToken";
 
 const AuthChecker = ({ element }) => {
   const navigate = useNavigate();
-  const userData = useGetStoreData("user");
+  const userToken = useGetStoreData("token");
 
   useEffect(() => {
-    if (!userData) {
+    if (!userToken || isTokenExpired(userToken)) {
       navigate("/");
     }
   }, [navigate]);
 
-  return <>{userData && element}</>;
+  return <>{userToken && element}</>;
 };
 
 export default AuthChecker;
