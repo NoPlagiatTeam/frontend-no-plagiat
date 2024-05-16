@@ -10,7 +10,7 @@ import { SecondLogo } from "../../assets";
 import "./Sign.css";
 import { routes } from "../../services/routes";
 import URL_SERVER from "../../services/routes";
-import { ProgressStep } from "../../components/molecules";
+import { ProgessStep } from "../../components/molecules";
 
 const SignInPage = () => {
   // state
@@ -93,7 +93,7 @@ const SignInPage = () => {
       {step == 1 && (
         <div className="flex flex-col items-center w-full h-screen bg-white py-4">
           <div className="w-1/3">
-            <ProgressStep step={step} />
+            <ProgessStep step={step} />
           </div>
           <div className="w-1/4 pt-2">
             <div className="flex justify-center w-full pl-14">
