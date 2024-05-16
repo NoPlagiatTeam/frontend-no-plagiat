@@ -8,9 +8,11 @@ import { Avatar, ButtonIcon, Icon, Logo, SmallText } from "../../atoms";
 import { MainLogo, SecondLogo } from "../../../assets";
 import { Link } from "react-router-dom";
 import { useGetStoreData } from "../../../hooks/useGetStoreData";
+import { isTokenExpired } from "../../../utils/checkValidToken";
 
 const NavBar = ({ isDownload, onClick, isloading }) => {
   // hook
+  const userToken = useGetStoreData("token");
   const userData = useGetStoreData("user");
 
   //  theme context
@@ -50,14 +52,14 @@ const NavBar = ({ isDownload, onClick, isloading }) => {
             />
           )}
           <div className="flex items-center gap-4">
-            {!userData && (
+            {(!userToken || isTokenExpired(userToken)) && (
               <div className="flex items-center gap-5">
                 <Link to="/sign-up">
                   {" "}
                   <ButtonIcon title="Sign up" bg="bg-violet-600" />
                 </Link>
                 <Link to="/login">
-                  <SmallText title="Login" />
+                  <SmallText title="Sign In" />
                 </Link>
               </div>
             )}

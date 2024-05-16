@@ -9,6 +9,7 @@ import AddUserForm from "./AddUserForm/AddUserForm";
 import AddWordForm from "./AddWordForm/AddWordForm";
 import OverviewCard from "./OverviewCard/OverviewCard";
 import CardWrapper from "./CardWrapper/CardWrapper";
+import ProgressStep from "./progressStep/ProgressStep";
 
 export {
   NavBar,
@@ -22,4 +23,5 @@ export {
   AddWordForm,
   OverviewCard,
   CardWrapper,
+  ProgressStep,
 };

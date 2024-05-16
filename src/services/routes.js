@@ -27,6 +27,10 @@ export const routes = [
     typeRequest: "POST",
     path: "/api/user/login",
   },
+  {
+    typeRequest: "POST",
+    path: "/api/souscription/add",
+  },
 ];
 
 export default URL_SERVER;
