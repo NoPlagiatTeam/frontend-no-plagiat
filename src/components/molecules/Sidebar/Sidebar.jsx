@@ -1,42 +1,43 @@
-import React from "react";
+import React from 'react';
 
-import { TfiCreditCard } from "react-icons/tfi";
-import { LuUser2 } from "react-icons/lu";
-import { MdOutlineSubscriptions } from "react-icons/md";
-import { AiOutlineTeam } from "react-icons/ai";
-import { LuLayoutDashboard } from "react-icons/lu";
-import { FiLogOut } from "react-icons/fi";
+import { TfiCreditCard } from 'react-icons/tfi';
+import { LuUser2 } from 'react-icons/lu';
+import { MdOutlineSubscriptions } from 'react-icons/md';
+import { AiOutlineTeam } from 'react-icons/ai';
+import { LuLayoutDashboard } from 'react-icons/lu';
+import { FiLogOut } from 'react-icons/fi';
+import { TbReportSearch } from 'react-icons/tb';
 
-import { SecondLogo } from "../../../assets";
-import { Avatar } from "../../atoms";
-import { Link, redirect, useNavigate } from "react-router-dom";
-import { useGetStoreData } from "../../../hooks/useGetStoreData";
+import { SecondLogo } from '../../../assets';
+import { Avatar } from '../../atoms';
+import { Link, redirect, useNavigate } from 'react-router-dom';
+import { useGetStoreData } from '../../../hooks/useGetStoreData';
 
 const Sidebar = ({ setOpen, open, itempage }) => {
   // states
-  const userData = useGetStoreData("user");
+  const userData = useGetStoreData('user');
 
   // hooks
   const navigate = useNavigate();
 
   const Menus = [
     {
-      title: "Overview",
+      title: 'Overview',
       icon: <LuLayoutDashboard size={24} />,
-      link: "/dashboard",
+      link: '/dashboard',
     },
-    { title: "Profile", icon: <LuUser2 size={24} />, link: "/profile" },
+    { title: 'Profile', icon: <LuUser2 size={24} />, link: '/profile' },
     {
-      title: "Billing",
-      icon: <TfiCreditCard size={24} />,
-      link: "/facture",
+      title: 'Reports',
+      icon: <TbReportSearch size={24} />,
+      link: '/reports',
     },
     {
-      title: "Subscription",
+      title: 'Subscription',
       icon: <MdOutlineSubscriptions size={24} />,
-      link: "/souscription",
+      link: '/souscription',
     },
-    { title: "Team", icon: <AiOutlineTeam size={24} />, link: "/team" },
+    { title: 'Team', icon: <AiOutlineTeam size={24} />, link: '/team' },
   ];
 
   const handleMenuClick = (link) => {
@@ -44,8 +45,8 @@ const Sidebar = ({ setOpen, open, itempage }) => {
   };
 
   const signOutHandler = () => {
-    localStorage.clear("user");
-    navigate("/");
+    localStorage.clear('user');
+    navigate('/');
   };
 
   return (
@@ -65,16 +66,16 @@ const Sidebar = ({ setOpen, open, itempage }) => {
               <div
                 key={index}
                 className={` md:p-2 px-3 py-2 w-full text-gray-800 text-sm flex items-center p-5 gap-x-4 cursor-pointer  hover:bg-gray-100 rounded-lg ${
-                  menu.gap ? "mt-9" : "mt-2"
-                } ${index === itempage && "bg-gray-100 rounded-lg"} ${
-                  !open && "p-3"
+                  menu.gap ? 'mt-9' : 'mt-2'
+                } ${index === itempage && 'bg-gray-100 rounded-lg'} ${
+                  !open && 'p-3'
                 }`}
                 onClick={() => handleMenuClick(menu.link)} // Redirection vers l'URL spécifiée dans le menu
               >
                 <span className="">{menu.icon}</span>
                 <span
                   className={`${
-                    !open && "hidden"
+                    !open && 'hidden'
                   } origin-left duration-200 text-base`}
                 >
                   {menu.title}

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { MdDownload } from "react-icons/md";
-import { Sidebar } from "../../components/molecules";
-const FacturationPage = () => {
+import { MdDownload } from 'react-icons/md';
+import { Sidebar } from '../../components/molecules';
+const ReportsPage = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -75,4 +75,4 @@ const FacturationPage = () => {
   );
 };
 
-export default FacturationPage;
+export default ReportsPage;
