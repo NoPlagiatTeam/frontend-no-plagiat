@@ -3,8 +3,10 @@ import { Sidebar } from "../../components/molecules";
 import {CardWrapper, ProfileInfo} from "../../components/molecules/index.js";
 import UpdatePassword from "../../components/molecules/profile/UpdatePassword.jsx";
 
+
 const ProfilPage = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const darkCtx = themeCtx();
   return (
       <div className="bg-white h-screen flex">
           <Sidebar setOpen={setIsOpen} open={isOpen} itempage={1}/>

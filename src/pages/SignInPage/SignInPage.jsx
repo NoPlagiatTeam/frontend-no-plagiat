@@ -1,23 +1,24 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { checkPassword } from "../../utils/checkPassword";
-import { createUser } from "../../services/service_api";
 
-import { CustomInput, Errorbar } from "../../components/atoms";
-import { FiUser } from "react-icons/fi";
-import { IoMdLock } from "react-icons/io";
-import { SecondLogo } from "../../assets";
-import "./Sign.css";
-import { routes } from "../../services/routes";
-import URL_SERVER from "../../services/routes";
-import { ProgessStep } from "../../components/molecules";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { checkPassword } from '../../utils/checkPassword';
+import { createUser } from '../../services/service_api';
+
+import { CustomInput, Errorbar } from '../../components/atoms';
+import { FiUser } from 'react-icons/fi';
+import { IoMdLock } from 'react-icons/io';
+import { SecondLogo } from '../../assets';
+import './Sign.css';
+import { routes } from '../../services/routes';
+import URL_SERVER from '../../services/routes';
+import { ProgressStep } from '../../components/molecules';
 
 const SignInPage = () => {
   // state
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [erreur, setErreur] = useState({ isErreur: false, message: "" });
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [erreur, setErreur] = useState({ isErreur: false, message: '' });
   const [step, setStep] = useState(1);
   const [user, setUser] = useState({});
 
@@ -41,31 +42,31 @@ const SignInPage = () => {
         console.log(data);
         setUser(data.data);
         setStep(step + 1);
-        setErreur("");
+        setErreur('');
       } else {
         setErreur({
           isErreur: true,
-          message: "the size of the password must be at least 6 characters",
+          message: 'the size of the password must be at least 6 characters',
         });
       }
     } catch (err) {
       setErreur({
         isErreur: true,
-        message: "Please, check your connection and try again",
+        message: 'Please, check your connection and try again',
       });
     }
   };
 
   const resetInputValue = () => {
-    setUserName("");
-    setUserPassword("");
-    setUserEmail("");
+    setUserName('');
+    setUserPassword('');
+    setUserEmail('');
   };
 
   const subscriptionHandler = async () => {
     try {
       const subscription = {
-        formuleId: 0,
+        formuleId: 1,
         userId: user.id,
       };
 
@@ -74,12 +75,12 @@ const SignInPage = () => {
         method: routes[5].typeRequest,
         body: JSON.stringify(subscription),
         headers: {
-          "Content-Type": "Application/json",
+          'Content-Type': 'Application/json',
         },
       });
 
       const data = await response.json();
-      navigate("/login");
+      navigate('/login');
       console.log(data);
     } catch (err) {
       console.log(err);
@@ -137,12 +138,12 @@ const SignInPage = () => {
             </div>
 
             <div className="group relative flex justify-center pb-6">
-              {" "}
+              {' '}
               <button
-                disabled={inputValues.includes("") ? true : false}
+                disabled={inputValues.includes('') ? true : false}
                 onClick={createUserHandler}
                 className={`relative rounded-lg ${
-                  inputValues.includes("") ? "bg-orange-300" : "bg-orange-500"
+                  inputValues.includes('') ? 'bg-orange-300' : 'bg-orange-500'
                 } px-12 py-3 text-white w-full cursor-pointer`}
               >
                 S’inscrire
