@@ -1,128 +1,113 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {useEffect, useState} from "react";
 
-import { Sidebar } from '../../components/molecules';
-import URL_SERVER from '../../services/routes';
-import { useGetStoreData } from '../../hooks/useGetStoreData';
-import { themeCtx } from '../../context/ThemeContext';
+import {CardWrapper, Sidebar} from "../../components/molecules";
+import URL_SERVER, {routes} from "../../services/routes.js";
+import {addSouscription, getSouscriptionUser} from "../../services/service_api.js";
+import {Errorbar} from "../../components/atoms/index.js";
+import {getUserDataFromStorage} from "../../utils/getUserFromStorage.js";
 
 const SouscriptionPage = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [subscriptions, setSubscriptions] = useState([]);
-
-  const darkCtx = themeCtx();
-
-  const user = useGetStoreData('user');
-  const userToken = useGetStoreData('token');
-
-  // get subscription by userId
-  const getSubscription = useCallback(async () => {
-    try {
-      const userId = user.id;
-      const response = await fetch(
-        URL_SERVER + '/api/souscription/ByUser/' + userId,
-        {
-          headers: {
-            Authorization: 'Bearer ' + userToken,
-          },
-        }
-      );
-      const userSubscriptions = await response.json();
-      setSubscriptions(userSubscriptions.data);
-    } catch (err) {
-      console.log(err);
-    }
-  });
+  const [souscriptionData, setSouscriptionData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [erreur, setErreur] = useState({ isErreur: false, message: "" });
+  const [formules, setFormules] = useState({});
+  const userData = getUserDataFromStorage('user');
 
   useEffect(() => {
-    getSubscription();
+    const fetchSouscriptionData = async () => {
+      setLoading(true);
+      const response = await getSouscriptionUser(URL_SERVER + routes[6].path + userData.id );
+      if (response.data) {
+        setSouscriptionData(response.data)
+        setLoading(false);
+      }
+    };
+      fetchSouscriptionData();
   }, []);
 
+  const renewSouscription = async (formule, user) => {
+    console.log(formule)
+    const body = {
+      user: user.id,
+      formule: formule.id,
+    };
+    try {
+      const response = await addSouscription(URL_SERVER + routes[7].path, body);
+      if (response.message && !response.data) {
+        setErreur({isErreur: true, message: response.message});
+      } else if (response.data) {
+        console.log("Ajout effectué");
+      }
+    } catch (e) {
+      console.log(e)
+      setErreur({
+        isErreur: true,
+        message: "Please, check your connection and try again",
+      });
+    }
+  }
+
   return (
-    <div
-      className={`${darkCtx.isDark ? 'bg-black' : 'bg-white'} h-screen flex`}
-    >
-      <Sidebar setOpen={setIsOpen} open={isOpen} itempage={3} />
-
-      <div
-        className={`overflow-scroll overflow-y-scroll flex flex-col items-center w-full py-8`}
-      >
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead
-              class={`text-base text-gray-700 uppercase ${
-                darkCtx.isDark ? 'bg-gray-900' : 'bg-white'
-              }`}
-            >
-              <tr>
-                <th scope="col" class="px-6 py-3">
-                  Adhésion
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Total
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Utilisée
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Date d’achat
-                </th>
-                {/* <th scope="col" class="px-6 py-3">
-                  Date d’expiration
-                </th> */}
-                {/* <th scope="col" class="px-6 py-3">
-                  Date de renouvellement
-                </th> */}
-                <th scope="col" class="px-6 py-3">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {subscriptions.map((subscription, index) => (
-                <tr
-                  key={index}
-                  class={`"bg-white border-b ${
-                    darkCtx.isDark ? 'bg-gray-900' : 'bg-white'
-                  } `}
-                >
-                  <td class="px-6 py-4">{subscription.formule.titre}</td>
-                  <td class="px-6 py-4">{subscription.formule.nbmot}</td>
-                  <td class="px-6 py-4">{subscription.user.credit}</td>
-                  <td class="px-6 py-4">{subscription.createdAt}</td>
-                  {/* <td class="px-6 py-4">{subscription.createdAt + 360000}</td> */}
-
-                  <td class="px-6 py-4">
-                    <a
-                      href="#"
-                      class="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:ring-orange-200 font-medium rounded-lg text-sm px-5 py-2.5  focus:outline-none "
-                    >
-                      Renouveller
-                    </a>
-                  </td>
-                </tr>
-              ))}
-              {/* <tr class="bg-white border-b ">
-                <td class="px-6 py-4">Classique</td>
-                <td class="px-6 py-4">200000</td>
-                <td class="px-6 py-4">15000</td>
-                <td class="px-6 py-4">26-02-2024</td>
-                <td class="px-6 py-4">26-02-2025</td>
-                <td class="px-6 py-4">25-02-2025</td>
-
-                <td class="px-6 py-4">
-                  <a
-                    href="#"
-                    class="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:ring-orange-200 font-medium rounded-lg text-sm px-5 py-2.5  focus:outline-none "
-                  >
-                    Renouveller
-                  </a>
-                </td>
-              </tr> */}
-            </tbody>
-          </table>
+      <div className="bg-white h-screen flex">
+        <Sidebar setOpen={setIsOpen} open={isOpen} itempage={3}/>
+        <Errorbar erreur={erreur.isErreur} message={erreur.message}/>
+        <div className="flex flex-col items-center p-2 mt-9">
+          <h1 className="font-bold ml-9 text-2xl"> {">"}Souscription </h1>
         </div>
+        <CardWrapper>
+        {loading ? <p>Chargement en cours...</p> :
+            <div
+                className={`container flex flex-wrap px-5 py-24 mx-auto items-center`}
+            >
+              <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead className="text-base text-gray-700 uppercase bg-gray-50 dark:bg-blue-50 ">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      Adhésion
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Total
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Utilisée
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Date d’achat
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Date d’expiration
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Date de renouvellement
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {souscriptionData.map((item, index) => (
+                      <tr key={index}>
+                        <td className="px-6 py-4">{item.formule.prix}</td>
+                        <td className="px-6 py-4">{item.formule.nbmot}</td>
+                        <td className="px-6 py-4">{item.formule.isAvailable}</td>
+                        <td className="px-6 py-4">{item.formule.createdAt}</td>
+                        <td className="px-6 py-4">{item.formule.expireAt}</td>
+                        <td className="px-6 py-4">{item.formule.updatedAt}</td>
+                      </tr>
+                  ))}
+                  </tbody>
+                </table>
+              </div>
+              {/*<button*/}
+              {/*    className="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:ring-orange-200 font-medium rounded-lg text-sm px-5 py-2.5  focus:outline-none"*/}
+              {/*    onClick={() => renewSouscription(souscriptionData.formule, userData)}*/}
+              {/*>*/}
+              {/*  Renouveler*/}
+              {/*</button>*/}
+            </div>
+        }
+        </CardWrapper>
       </div>
-    </div>
   );
 };
 

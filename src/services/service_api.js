@@ -25,4 +25,14 @@ const authUser = async (url, body) => {
   return await sendRequest(url, options);
 };
 
-export { createUser, authUser };
+const getSouscriptionUser = async (url, body) => {
+  const options = optionsHandler("GET", body, false);
+  return await sendRequest(url, options);
+}
+
+const addSouscription = async (url, body) => {
+  const options = optionsHandler("POST", body, false);
+  return await sendRequest(url, options);
+};
+
+export { createUser, authUser, getSouscriptionUser , addSouscription};

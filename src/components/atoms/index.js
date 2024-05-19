@@ -13,7 +13,7 @@ import Avatar from "./Avatar/Avatar";
 import UserInput from "./UserInput/UserInput";
 import Button from "./Button/Button";
 import AuthCard from "./AuthCard/AuthCard";
-
+import AvatarName from "./AvatarName/AvatarName.jsx";
 export {
   ButtonIcon,
   Icon,
@@ -27,6 +27,7 @@ export {
   CustomInput,
   Errorbar,
   Avatar,
+  AvatarName,
   UserInput,
   Button,
   AuthCard,
