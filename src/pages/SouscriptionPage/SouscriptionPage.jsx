@@ -3,10 +3,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Sidebar } from '../../components/molecules';
 import URL_SERVER from '../../services/routes';
 import { useGetStoreData } from '../../hooks/useGetStoreData';
+import { themeCtx } from '../../context/ThemeContext';
 
 const SouscriptionPage = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [subscriptions, setSubscriptions] = useState([]);
+
+  const darkCtx = themeCtx();
 
   const user = useGetStoreData('user');
   const userToken = useGetStoreData('token');
@@ -35,7 +38,9 @@ const SouscriptionPage = () => {
   }, []);
 
   return (
-    <div className="bg-white h-screen flex">
+    <div
+      className={`${darkCtx.isDark ? 'bg-black' : 'bg-white'} h-screen flex`}
+    >
       <Sidebar setOpen={setIsOpen} open={isOpen} itempage={3} />
 
       <div
@@ -43,7 +48,11 @@ const SouscriptionPage = () => {
       >
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-blue-50 ">
+            <thead
+              class={`text-base text-gray-700 uppercase ${
+                darkCtx.isDark ? 'bg-gray-900' : 'bg-white'
+              }`}
+            >
               <tr>
                 <th scope="col" class="px-6 py-3">
                   Adhésion
@@ -70,7 +79,12 @@ const SouscriptionPage = () => {
             </thead>
             <tbody>
               {subscriptions.map((subscription, index) => (
-                <tr key={index} class="bg-white border-b ">
+                <tr
+                  key={index}
+                  class={`"bg-white border-b ${
+                    darkCtx.isDark ? 'bg-gray-900' : 'bg-white'
+                  } `}
+                >
                   <td class="px-6 py-4">{subscription.formule.titre}</td>
                   <td class="px-6 py-4">{subscription.formule.nbmot}</td>
                   <td class="px-6 py-4">{subscription.user.credit}</td>

@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { IoMdLock } from "react-icons/io";
-import { CustomInput } from "../../components/atoms";
-import { Sidebar } from "../../components/molecules";
+import { IoMdLock } from 'react-icons/io';
+import { CustomInput } from '../../components/atoms';
+import { Sidebar } from '../../components/molecules';
+import { themeCtx } from '../../context/ThemeContext';
 
 const ProfilPage = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const darkCtx = themeCtx();
   return (
-    <div className="bg-white h-screen flex">
+    <div
+      className={`${darkCtx.isDark ? 'bg-black' : 'bg-white'} h-screen flex`}
+    >
       <Sidebar setOpen={setIsOpen} open={isOpen} itempage={1} />
 
       <div
         className={`overflow-scroll overflow-y-scroll flex flex-col items-center w-full py-8`}
       >
-        <div class="text-gray-600 body-font bg-white">
+        <div class="text-gray-600 body-font">
           <div class="container flex flex-wrap px-5 py-24 mx-auto items-center">
             <div class="md:w-1/2 md:pr-12 md:py-8 md:border-r md:border-b-0 mb-10 md:mb-0 pb-10 border-b border-gray-200">
               <div class="container flex justify-between items-center">
@@ -32,8 +36,8 @@ const ProfilPage = () => {
                   type="submit"
                   class="text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-base px-5 py-2.5"
                 >
-                  {" "}
-                  Modifier{" "}
+                  {' '}
+                  Modifier{' '}
                 </button>
               </div>
               <div className="py-6">informations</div>
@@ -58,14 +62,9 @@ const ProfilPage = () => {
               </div>
             </div>
             <div class="flex flex-col md:w-1/2 md:pl-12">
-              <div class="  bg-white p-10">
+              <div class="   p-10">
                 <div class="container flex justify-center items-center ">
-                  <div class="group relative flex justify-center w-full pb-4">
-                    {" "}
-                    <button class="relative rounded-lg border border-orange-500 px-7 py-4 text-orange-500 w-full ">
-                      S'inscrire
-                    </button>
-                  </div>
+                  <div class="group relative flex justify-center w-full pb-4"></div>
                 </div>
                 <div class="container flex justify-center items-center "></div>
                 <div class="pb-9">
@@ -94,8 +93,8 @@ const ProfilPage = () => {
                   type="submit"
                   class="text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-base px-5 py-2.5"
                 >
-                  {" "}
-                  Changer{" "}
+                  {' '}
+                  Changer{' '}
                 </button>
               </div>
             </div>

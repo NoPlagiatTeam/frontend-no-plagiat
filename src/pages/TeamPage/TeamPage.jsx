@@ -1,13 +1,15 @@
-import { Sidebar } from "../../components/molecules";
-import React, { useState, useEffect } from "react";
-import { MdDownload } from "react-icons/md";
-import { CiTrash } from "react-icons/ci";
+import { Sidebar } from '../../components/molecules';
+import React, { useState, useEffect } from 'react';
+import { MdDownload } from 'react-icons/md';
+import { CiTrash } from 'react-icons/ci';
+import { themeCtx } from '../../context/ThemeContext';
 
 const TeamPage = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const darkCtx = themeCtx();
 
   return (
-    <div className="bg-white h-screen flex">
+    <div className={`flex ${darkCtx.isDark ? 'bg-black' : 'bg-white'}`}>
       <Sidebar setOpen={setIsOpen} open={isOpen} itempage={4} />
 
       <div
@@ -15,7 +17,11 @@ const TeamPage = () => {
       >
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
           <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-blue-50 ">
+            <thead
+              class={`text-base text-gray-700 uppercase ${
+                darkCtx.isDark ? 'bg-gray-900' : 'bg-white'
+              }`}
+            >
               <tr>
                 <th scope="col" class="px-6 py-3">
                   Nom
@@ -41,7 +47,7 @@ const TeamPage = () => {
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white border-b ">
+              <tr className={`${darkCtx.isDark ? 'bg-gray-900' : 'bg-white'}`}>
                 <td class="px-6 py-4">Membre 1</td>
                 <td class="px-6 py-4">classique</td>
                 <td class="px-6 py-4">200000</td>
