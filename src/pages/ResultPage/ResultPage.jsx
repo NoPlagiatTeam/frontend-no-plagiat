@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { getDate } from "../../utils/getDate";
-import { useGetStoreData } from "../../hooks/useGetStoreData";
-import { lowerCase } from "../../utils/lowerCase";
-import jsPdf from "jspdf";
-import html2canvas from "html2canvas";
+import React, { useState } from 'react';
+import { getDate } from '../../utils/getDate';
+import { useGetStoreData } from '../../hooks/useGetStoreData';
+import { lowerCase } from '../../utils/lowerCase';
+import jsPdf from 'jspdf';
+import html2canvas from 'html2canvas';
 
-import { NavBar, Reference, StatisticGraph } from "../../components/molecules";
-import { BigText, SmallText } from "../../components/atoms";
-import { themeCtx } from "../../context/ThemeContext";
+import { NavBar, Reference, StatisticGraph } from '../../components/molecules';
+import { BigText, SmallText } from '../../components/atoms';
+import { themeCtx } from '../../context/ThemeContext';
 
 const Resultpage = () => {
   // getLocalstorage
-  const statData = useGetStoreData("result");
-  const plagiatResult = useGetStoreData("plagiatResult");
-  const references = useGetStoreData("references");
+  const statData = useGetStoreData('result');
+  const plagiatResult = useGetStoreData('plagiatResult');
+  const references = useGetStoreData('references');
 
   // theme context
   const darkCtx = themeCtx();
@@ -23,38 +23,40 @@ const Resultpage = () => {
 
   // plagiarized phrases and document text
   const plagiarizedPhrases = plagiatResult.similarityResults.plagiarizedPhrases;
-  const text = statData.text.split(" ");
+  const text = statData.text.split(' ');
 
   // download pdf rapport
- 
-  
 
   const generatePDF = () => {
-      const input = document.getElementById("pdf-content");
-  
-      const contentWidth = input.offsetWidth;
-      const contentHeight = input.offsetHeight;
-  
-      setIsLoading(true);
+    const input = document.getElementById('pdf-content');
 
-      html2canvas(input, { scrollY: -window.scrollY, height: contentHeight }).then((canvas) => {
-          const imgData = canvas.toDataURL("image/png");
-  
-          const pdf = new jsPdf('p', 'pt', [contentWidth, contentHeight]);
-          pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight);
+    const contentWidth = input.offsetWidth;
+    const contentHeight = input.offsetHeight;
 
-          setIsLoading(false);
-          pdf.save("rapport-NoPlagiat-" + getDate());
-      });
+    setIsLoading(true);
+
+    html2canvas(input, {
+      scrollY: -window.scrollY,
+      height: contentHeight,
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+
+      const pdf = new jsPdf('p', 'pt', [contentWidth, contentHeight]);
+      pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight);
+      console.log(
+        pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight)
+      );
+
+      setIsLoading(false);
+      pdf.save('rapport-NoPlagiat-' + getDate());
+    });
   };
-  
-
 
   return (
     <React.Fragment>
       <div
         className={
-          darkCtx.isDark ? "bg-black text-gray-400" : "bg-white text-black"
+          darkCtx.isDark ? 'bg-black text-gray-400' : 'bg-white text-black'
         }
       >
         <NavBar isloading={isloading} isDownload={true} onClick={generatePDF} />
@@ -77,7 +79,7 @@ const Resultpage = () => {
           <div className="">
             <div
               className={`my-8 py-4 px-5 rounded-lg border ${
-                darkCtx.isDark ? "border-[#212121]" : "border-gray-200"
+                darkCtx.isDark ? 'border-[#212121]' : 'border-gray-200'
               }`}
             >
               <SmallText title="Content" />
@@ -87,8 +89,8 @@ const Resultpage = () => {
                     key={index}
                     className={
                       plagiarizedPhrases.includes(phrase)
-                        ? "bg-red-400 text-gray-100"
-                        : "text-gray-600"
+                        ? 'bg-red-400 text-gray-100'
+                        : 'text-gray-600'
                     }
                   >
                     {phrase}
