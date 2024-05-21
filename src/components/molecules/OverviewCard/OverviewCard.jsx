@@ -27,7 +27,7 @@ const OverviewCard = ({ icon, title, subtitle, link }) => {
         </h1>
         <p
           className={`text-md ${
-            darkCtx.isDark ? 'text-gray-800' : 'text-gray-400'
+            darkCtx.isDark ? 'text-gray-600' : 'text-gray-400'
           }`}
         >
           {subtitle}
