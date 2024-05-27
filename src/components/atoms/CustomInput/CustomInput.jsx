@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
 function CustomInput({ placeholder, icon, name, value, onChange, type }) {
   return (
     <div>
-      <label
+      {/* <label
         htmlFor={placeholder}
         className="block mb-2 text-xl font-medium text-black-900 dark:text-black"
       >
         {name}
-      </label>
+      </label> */}
       <div className="flex">
         <input
           id={placeholder}

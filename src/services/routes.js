@@ -1,40 +1,40 @@
 // url
-const URL_SERVER = "http://localhost:5000";
+const URL_SERVER = 'http://87.106.235.98';
 
 // routes
 export const routes = [
   {
-    typeRequest: "POST",
-    path: "/analyse_doc",
+    typeRequest: 'POST',
+    path: '/api/analyse_doc',
   },
   {
-    typeRequest: "POST",
-    path: "/traitement_doc",
+    typeRequest: 'POST',
+    path: '/api/traitement_doc',
   },
   {
-    typeRequest: "POST",
-    path: "/detection",
+    typeRequest: 'POST',
+    path: '/api/detection',
   },
   {
-    typeRequest: "POST",
-    path: "/getPlagiaDetail",
+    typeRequest: 'POST',
+    path: '/api/getPlagiaDetail',
   },
   {
-    typeRequest: "POST",
-    path: "/api/user/register",
+    typeRequest: 'POST',
+    path: '/api/user/register',
   },
   {
-    typeRequest: "POST",
-    path: "/api/user/login",
+    typeRequest: 'POST',
+    path: '/api/user/login',
   },
   {
-    typeRequest: "GET",
-    path: "/api/souscription/ByUser/",
+    typeRequest: 'GET',
+    path: '/api/souscription/ByUser/',
   },
   {
-    typeRequest: "POST",
-    path: "/api/souscription/add",
-  }
+    typeRequest: 'POST',
+    path: '/api/souscription/add',
+  },
 ];
 
 export default URL_SERVER;

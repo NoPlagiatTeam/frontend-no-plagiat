@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from 'react';
 
-import { themeCtx } from "../../context/ThemeContext";
-import URL_SERVER from "../../services/routes";
-import { routes } from "../../services/routes";
-import { storageData } from "../../utils/storageData";
-import { useGetStoreData } from "../../hooks/useGetStoreData";
+import { themeCtx } from '../../context/ThemeContext';
+import URL_SERVER from '../../services/routes';
+import { routes } from '../../services/routes';
+import { storageData } from '../../utils/storageData';
+import { useGetStoreData } from '../../hooks/useGetStoreData';
 
-import { Modal, ModalDashboard, NavBar } from "../../components/molecules";
+import { Modal, ModalDashboard, NavBar } from '../../components/molecules';
 import {
   AuthCard,
   BigText,
@@ -14,11 +14,11 @@ import {
   InputCheck,
   SmallText,
   Text,
-} from "../../components/atoms";
-import { GoUpload, GoLink } from "react-icons/go";
-import { FaTextSlash } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
-import { getUser } from "../../utils/getUser";
+} from '../../components/atoms';
+import { GoUpload, GoLink } from 'react-icons/go';
+import { FaTextSlash } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
+import { getUser } from '../../utils/getUser';
 
 const Uploadpage = () => {
   // theme context
@@ -32,22 +32,22 @@ const Uploadpage = () => {
   const [erreur, setErreur] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [link, setLink] = useState("");
+  const [link, setLink] = useState('');
   const [statistic, setStatistic] = useState();
 
   // ui states
   const [textUnique, setTextUnique] = useState(0);
   const [pourcentLoader, setPourcentLoader] = useState(0);
   const [currentOperation, setCurrentOperation] = useState(
-    "Document processing ..."
+    'Document processing ...'
   );
   const [textPlagie, setTextPlagie] = useState(0);
   const [isShowAuthModal, setIsShowAuthModal] = useState(false);
 
   // custom hook
-  let results = useGetStoreData("result");
-  const userData = useGetStoreData("user");
-  const userToken = useGetStoreData("token");
+  let results = useGetStoreData('result');
+  const userData = useGetStoreData('user');
+  const userToken = useGetStoreData('token');
   // const [user, setUser] = useState({});
   let resData;
   const [userCredit, setUserCredit] = useState(userData ? userData.credit : 0);
@@ -90,10 +90,10 @@ const Uploadpage = () => {
       setTextPlagie(0);
       setPourcentLoader(0);
       const response = await fetch(URL_SERVER + routes[1].path, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + userToken,
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + userToken,
         },
         body: JSON.stringify({ text: results.text }),
       });
@@ -101,7 +101,7 @@ const Uploadpage = () => {
       console.log(firstResult);
       //1.first action
       setPourcentLoader(50);
-      setCurrentOperation("Plagiarism check ...");
+      setCurrentOperation('Plagiarism check ...');
       getResultplagiatHandler(
         results.text,
         firstResult.pdfFiles,
@@ -126,7 +126,7 @@ const Uploadpage = () => {
       }, 10000);
     } catch (e) {
       console.log(e);
-      setErreur("Please check your connection and try again later");
+      setErreur('Please check your connection and try again later');
       setShowModal(false);
     }
   };
@@ -141,10 +141,10 @@ const Uploadpage = () => {
   ) => {
     try {
       const res = await fetch(URL_SERVER + route, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + userToken,
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + userToken,
         },
         body: JSON.stringify({
           pdfFiles: firstResult,
@@ -162,14 +162,14 @@ const Uploadpage = () => {
 
       const secondResult = await res.json();
       console.log(secondResult);
-      if (route === "/getPlagiaDetail") {
+      if (route === '/api/getPlagiaDetail') {
         getStatistic(secondResult);
       } else {
         resultPlagiat(secondResult);
       }
     } catch (e) {
-      console.log(e);
-      setErreur("Please check your connection and try again later");
+      // console.log(e);
+      setErreur('Please check your connection and try again later');
       setShowModal(false);
     }
   };
@@ -179,7 +179,7 @@ const Uploadpage = () => {
   const getStatistic = (result) => {
     if (result) {
       setStatistic(result.similarityResults);
-      storageData(result, "plagiatResult");
+      storageData(result, 'plagiatResult');
       console.log(result);
     }
   };
@@ -189,8 +189,8 @@ const Uploadpage = () => {
   const resultPlagiat = (result) => {
     if (result) {
       console.log(result);
-      storageData(result, "references");
-      navigate("/results");
+      storageData(result, 'references');
+      navigate('/results');
       setShowModal(false);
     }
   };
@@ -204,33 +204,33 @@ const Uploadpage = () => {
       const response = await fetch(
         URL_SERVER + routes[0].path,
 
-        routes[0].typeRequest === "POST" && jsonHeader
+        routes[0].typeRequest === 'POST' && jsonHeader
           ? {
               // json parameters
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + userToken,
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + userToken,
               },
               body: newData,
             }
           : {
               // formdata parameters
-              method: "POST",
-              headers: { Authorization: "Bearer " + userToken },
+              method: 'POST',
+              headers: { Authorization: 'Bearer ' + userToken },
               body: newData,
             }
       );
       const myData = await response.json();
       console.log(myData);
       resData = myData;
-      storageData(resData, "result");
+      storageData(resData, 'result');
       setIsLoading(false);
-      console.log("good response");
+      console.log('good response');
     } catch (err) {
-      setErreur("Please check your connection and try again later");
+      setErreur('Please check your connection and try again later');
       setIsLoading(false);
-      console.log("bad response");
+      console.log('bad response');
     }
   };
 
@@ -238,32 +238,32 @@ const Uploadpage = () => {
   useEffect(() => {
     if (files && link.length === 0) {
       const data = new FormData();
-      data.append("document", files[0]);
+      data.append('document', files[0]);
       console.log(files[0]);
-      console.log("je suis un fichier");
+      console.log('je suis un fichier');
       getDataHandler(data, false);
     } else if (link.length > 0 && files.length === 0) {
       console.log(link);
-      console.log("je suis un lien");
+      console.log('je suis un lien');
       let currentLink = JSON.stringify({ link: link });
       getDataHandler(currentLink, true);
     } else {
-      console.log("went something wrong");
+      console.log('went something wrong');
     }
   }, [files, link]);
 
   // clear text handler
   const clearTextHandler = (e) => {
     setFiles([]);
-    e.target.value = "";
-    setLink("");
+    e.target.value = '';
+    setLink('');
     setErreur(null);
   };
 
   // open file system
   const openFileSystem = () => {
     if (userToken) {
-      document.querySelector(".fichier").click();
+      document.querySelector('.fichier').click();
       setErreur(null);
     } else {
       setIsShowAuthModal(true);
@@ -285,7 +285,7 @@ const Uploadpage = () => {
       console.log(textUnique);
       return () => clearInterval(interval);
     } else {
-      console.log("Impossible ce calculer");
+      console.log('Impossible ce calculer');
     }
   }, [setTextUnique, setTextPlagie, statistic]);
 
@@ -314,7 +314,7 @@ const Uploadpage = () => {
 
   return (
     <React.Fragment>
-      <div className={` ${darkCtx.isDark ? "text-white" : "text-gray-600"}`}>
+      <div className={` ${darkCtx.isDark ? 'text-white' : 'text-gray-600'}`}>
         <NavBar />
         <div className="px-20 py-5">
           {/* buttons sections */}
@@ -340,8 +340,8 @@ const Uploadpage = () => {
               <div
                 className={`h-[300px] w-full overflow-y-scroll text-center pt-12 ${
                   darkCtx.isDark
-                    ? "bg-[#212121] "
-                    : "bg-gray-200 border border-gray-300"
+                    ? 'bg-[#212121] '
+                    : 'bg-gray-200 border border-gray-300'
                 }`}
               >
                 <BigText title="Please upload your document" />
@@ -381,7 +381,7 @@ const Uploadpage = () => {
               {/* buttons box */}
               <div
                 className={`flex items-center justify-between w-full py-1 px-2 border ${
-                  darkCtx.isDark ? "border-[#212121]" : "border-gray-300"
+                  darkCtx.isDark ? 'border-[#212121]' : 'border-gray-300'
                 } `}
               >
                 {/* first section buttons box */}
@@ -417,18 +417,18 @@ const Uploadpage = () => {
               <div className="w-full">
                 <Text>
                   <h1 className="text-start text-[12px] py-3">
-                    Words{" "}
+                    Words{' '}
                     {(files.length > 0 || link.length > 0) &&
                     results.nbmot < userCredit &&
                     !erreur
                       ? results.nbmot
-                      : "0"}
-                    /{userCredit} |{" "}
+                      : '0'}
+                    /{userCredit} |{' '}
                     {(files.length > 0 || link.length > 0) &&
                     results.nbmot < userCredit &&
                     !erreur
                       ? results.page
-                      : "0"}{" "}
+                      : '0'}{' '}
                     pages
                   </h1>
                 </Text>
@@ -439,8 +439,8 @@ const Uploadpage = () => {
                     bg={
                       (files.length > 0 || link.length > 0) &&
                       results.nbmot < userCredit
-                        ? "bg-orange-600"
-                        : "bg-orange-400"
+                        ? 'bg-orange-600'
+                        : 'bg-orange-400'
                     }
                     diseable={
                       (files.length > 0 || link.length > 0) &&
