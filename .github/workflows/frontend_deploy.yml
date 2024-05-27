@@ -15,7 +15,6 @@ jobs:
 
     - name: Install dependencies and build
       run: |
-        cd frontend
         npm install
         npm run build
 
@@ -26,5 +25,5 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: ${{ secrets.SERVER_PORT }}
-        source: "frontend/build"
+        source: ./dist
         target: ./noplagiat_project/frontend-Noplagiat
