@@ -1,5 +1,6 @@
 // url
 const URL_SERVER = 'http://87.106.235.98';
+// const URL_SERVER = 'http://localhost';
 
 // routes
 export const routes = [
