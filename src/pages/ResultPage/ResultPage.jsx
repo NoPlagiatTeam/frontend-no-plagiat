@@ -23,7 +23,7 @@ const Resultpage = () => {
 
   // plagiarized phrases and document text
   const plagiarizedPhrases = plagiatResult.similarityResults.plagiarizedPhrases;
-  const text = statData.text.split(' ');
+  const text = plagiatResult.similarityResults.text;
 
   // download pdf rapport
 
