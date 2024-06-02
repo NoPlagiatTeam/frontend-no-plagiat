@@ -22,7 +22,7 @@ const AddMemberCard = ({ onCancel }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(URL_SERVER + '/api/user/add-team-member', {
+      const response = await fetch(URL_SERVER + '/api/user/addTeamMember', {
         method: 'POST',
         body: JSON.stringify(memberData),
         headers: {
