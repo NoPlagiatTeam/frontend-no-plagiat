@@ -10,7 +10,7 @@ const AddMemberCard = ({ onCancel }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [erreur, setErreur] = useState('');
   const userData = useGetStoreData('user');
-  const userToken = useGetStorageData('token');
+  const userToken = useGetStoreData('token');
 
   const addMemberHandler = async () => {
     const memberData = {
