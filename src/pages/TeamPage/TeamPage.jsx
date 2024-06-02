@@ -1,10 +1,10 @@
 import { Sidebar } from '../../components/molecules';
 import React, { useState, useEffect } from 'react';
 import { themeCtx } from '../../context/ThemeContext';
-import URL_SERVER from "../../services/routes.js";
-import {useGetStoreData} from "../../hooks/useGetStoreData.js";
-import {Errorbar} from "../../components/atoms/index.js";
-import {getUserDataFromStorage} from "../../utils/getUserFromStorage.js";
+import URL_SERVER from '../../services/routes.js';
+import { useGetStoreData } from '../../hooks/useGetStoreData.js';
+import { Errorbar } from '../../components/atoms/index.js';
+import { getUserDataFromStorage } from '../../utils/getUserFromStorage.js';
 
 const TeamPage = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -18,13 +18,16 @@ const TeamPage = () => {
   useEffect(() => {
     const fetchTeamData = async () => {
       setLoading(true);
-      let response = await fetch(URL_SERVER + '/api/user/get-team-member/'+ userData.id, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: 'Bearer ' + userToken,
-        },
-      });
-      response = await response.json()
+      let response = await fetch(
+        URL_SERVER + '/api/user/getTeamMember/' + userData.id,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + userToken,
+          },
+        }
+      );
+      response = await response.json();
       if (response.data) {
         setTeamData(response.data);
         setLoading(false);
@@ -45,30 +48,30 @@ const TeamPage = () => {
         <div className=" shadow-md sm:rounded-lg">
           <table className="text-sm  text-gray-500 dark:text-gray-400">
             <thead
-                className={`text-base text-gray-700 uppercase ${
-                    darkCtx.isDark ? 'bg-gray-900' : 'bg-white'
-                }`}
+              className={`text-base text-gray-700 uppercase ${
+                darkCtx.isDark ? 'bg-gray-900' : 'bg-white'
+              }`}
             >
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Nom
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Email
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Nombre mots
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Date de création
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Date de mise à jour
-              </th>
-            </tr>
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  Nom
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Email
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Nombre mots
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Date de création
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Date de mise à jour
+                </th>
+              </tr>
             </thead>
             <tbody>
-            {teamData.map((item, index) => (
+              {teamData.map((item, index) => (
                 <tr key={index}>
                   <td className="px-6 py-4">{item.nom}</td>
                   <td className="px-6 py-4">{item.email}</td>
@@ -76,7 +79,7 @@ const TeamPage = () => {
                   <td className="px-6 py-4">{item.createdAt}</td>
                   <td className="px-6 py-4">{item.updatedAt}</td>
                 </tr>
-            ))}
+              ))}
             </tbody>
           </table>
         </div>
