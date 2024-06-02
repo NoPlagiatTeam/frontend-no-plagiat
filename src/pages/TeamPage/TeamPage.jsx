@@ -1,68 +1,82 @@
 import { Sidebar } from '../../components/molecules';
 import React, { useState, useEffect } from 'react';
-import { MdDownload } from 'react-icons/md';
-import { CiTrash } from 'react-icons/ci';
 import { themeCtx } from '../../context/ThemeContext';
+import URL_SERVER from "../../services/routes.js";
+import {useGetStoreData} from "../../hooks/useGetStoreData.js";
+import {Errorbar} from "../../components/atoms/index.js";
+import {getUserDataFromStorage} from "../../utils/getUserFromStorage.js";
 
 const TeamPage = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [teamData, setTeamData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [erreur, setErreur] = useState({ isErreur: false, message: '' });
+  const userToken = useGetStoreData('token');
+  const userData = getUserDataFromStorage('user');
   const darkCtx = themeCtx();
+
+  useEffect(() => {
+    const fetchTeamData = async () => {
+      setLoading(true);
+      let response = await fetch(URL_SERVER + '/api/user/get-team-member/'+ userData.id, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + userToken,
+        },
+      });
+      response = await response.json()
+      if (response.data) {
+        setTeamData(response.data);
+        setLoading(false);
+      }
+    };
+    fetchTeamData();
+  }, []);
 
   return (
     <div className={`flex ${darkCtx.isDark ? 'bg-black' : 'bg-white'}`}>
       <Sidebar setOpen={setIsOpen} open={isOpen} itempage={4} />
-
-      <div
-        className={`overflow-scroll overflow-y-scroll flex flex-col items-center w-full py-8`}
-      >
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <Errorbar erreur={erreur.isErreur} message={erreur.message} />
+      {/* <div className="flex flex-col items-center p-2 mt-9">
+          <h1 className="font-bold ml-9 text-2xl"> {">"}Souscription </h1>
+        </div> */}
+      <p>Chargement en cours...</p>
+      <div className={`flex justify-center py-8  w-full`}>
+        <div className=" shadow-md sm:rounded-lg">
+          <table className="text-sm  text-gray-500 dark:text-gray-400">
             <thead
-              class={`text-base text-gray-700 uppercase ${
-                darkCtx.isDark ? 'bg-gray-900' : 'bg-white'
-              }`}
+                className={`text-base text-gray-700 uppercase ${
+                    darkCtx.isDark ? 'bg-gray-900' : 'bg-white'
+                }`}
             >
-              <tr>
-                <th scope="col" class="px-6 py-3">
-                  Nom
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Adhésion
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Mots octroyé
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Utilisé
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Date d’achat
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Date d’expiration
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Action
-                </th>
-              </tr>
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                Nom
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Email
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Nombre mots
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Date de création
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Date de mise à jour
+              </th>
+            </tr>
             </thead>
             <tbody>
-              <tr className={`${darkCtx.isDark ? 'bg-gray-900' : 'bg-white'}`}>
-                <td class="px-6 py-4">Membre 1</td>
-                <td class="px-6 py-4">classique</td>
-                <td class="px-6 py-4">200000</td>
-                <td class="px-6 py-4">15000</td>
-                <td class="px-6 py-4">25-02-2024</td>
-                <td class="px-6 py-4">25-02-2025</td>
-                <td class="px-6 py-4">
-                  <a
-                    href="#"
-                    class="font-medium text-orange-500 hover:underline"
-                  >
-                    <CiTrash size={25} />
-                  </a>
-                </td>
-              </tr>
+            {teamData.map((item, index) => (
+                <tr key={index}>
+                  <td className="px-6 py-4">{item.nom}</td>
+                  <td className="px-6 py-4">{item.email}</td>
+                  <td className="px-6 py-4">{item.credit}</td>
+                  <td className="px-6 py-4">{item.createdAt}</td>
+                  <td className="px-6 py-4">{item.updatedAt}</td>
+                </tr>
+            ))}
             </tbody>
           </table>
         </div>
