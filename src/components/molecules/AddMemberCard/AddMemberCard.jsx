@@ -10,6 +10,7 @@ const AddMemberCard = ({ onCancel }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [erreur, setErreur] = useState('');
   const userData = useGetStoreData('user');
+  const userToken = useGetStorageData('token');
 
   const addMemberHandler = async () => {
     const memberData = {
@@ -26,6 +27,7 @@ const AddMemberCard = ({ onCancel }) => {
         body: JSON.stringify(memberData),
         headers: {
           'Content-Type': 'Application/json',
+          Authorization: 'Bearer ' + userToken,
         },
       });
 
