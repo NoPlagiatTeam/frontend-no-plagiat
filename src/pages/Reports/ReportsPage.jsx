@@ -19,7 +19,7 @@ const ReportsPage = () => {
   useEffect(() => {
     const fetchReport = async () => {
       setLoading(true);
-      let response = await fetch(URL_SERVER + '/api/user/get-team-member/'+ userData.id, {
+      let response = await fetch(URL_SERVER + '/api/rapport/byUser/'+ userData.id, {
         headers: {
           "Content-Type": "application/json",
           Authorization: 'Bearer ' + userToken,
