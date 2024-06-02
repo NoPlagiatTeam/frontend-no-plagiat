@@ -21,28 +21,27 @@ const AddMemberCard = ({ onCancel }) => {
     setIsLoading(true);
 
     try {
-      if (memberCredit < userData.credit) {
-        const response = await fetch(URL_SERVER + '/api/user/add-team-member', {
-          method: 'POST',
-          body: JSON.stringify(memberData),
-          headers: {
-            'Content-Type': 'Application/json',
-          },
-        });
+      const response = await fetch(URL_SERVER + '/api/user/add-team-member', {
+        method: 'POST',
+        body: JSON.stringify(memberData),
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+      });
 
-        const data = await response.json();
-        if (data.data.errors[0].message) {
-          setErreur(data.data.errors[0].message);
-        } else {
-          setMemberCredit('');
-          setMemberEmail('');
-          storageData(data.data.user_parent, 'user');
-        }
-        //   console.log(data);
-        setIsLoading(false);
+      const data = await response.json();
+      if (data.data.errors) {
+        // console.log(data);
+        return setErreur(data.data.errors[0].message);
       }
+      setMemberCredit('');
+      setMemberEmail('');
+      storageData(data.user_parent, 'user');
+
+      //   console.log(data);
+      setIsLoading(false);
     } catch (err) {
-      //   console.log(err);
+      console.log(err);
       setIsLoading(false);
     }
   };
@@ -58,12 +57,14 @@ const AddMemberCard = ({ onCancel }) => {
         <input
           type="email"
           placeholder="member email"
+          value={memberEmail}
           className="h-12 px-3 w-full text-sm font-semibold rounded-lg bg-gray-50 border border-gray-200"
           onChange={(e) => setMemberEmail(e.target.value)}
         />
         <input
           type="number"
           placeholder="number of words"
+          value={memberCredit}
           className="h-12 px-3 w-full text-sm font-semibold rounded-lg bg-gray-50 border border-gray-200"
           onChange={(e) => setMemberCredit(e.target.value)}
         />
