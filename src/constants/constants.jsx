@@ -74,7 +74,7 @@ export const overviewMenu = [
     icon: <TbReportAnalytics size={20} />,
   },
   {
-    title: userData.credit,
+    title: userData ? userData.credit : 0,
     subtitle: 'total number of words',
     icon: <RxLetterSpacing size={20} />,
   },

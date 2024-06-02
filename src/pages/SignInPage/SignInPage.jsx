@@ -70,7 +70,7 @@ const SignInPage = () => {
       };
 
       console.log(subscription);
-      const response = await fetch(URL_SERVER + routes[6].path, {
+      const response = await fetch(URL_SERVER + routes[6].path + user.id, {
         method: routes[5].typeRequest,
         body: JSON.stringify(subscription),
         headers: {
