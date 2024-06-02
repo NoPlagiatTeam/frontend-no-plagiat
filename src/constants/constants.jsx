@@ -1,7 +1,7 @@
-import { LuUserPlus2 } from 'react-icons/lu';
 import { RxLetterCaseCapitalize } from 'react-icons/rx';
 import { TbReportAnalytics } from 'react-icons/tb';
 import { RxLetterSpacing } from 'react-icons/rx';
+import { useGetStoreData } from '../hooks/useGetStoreData';
 
 import {
   Dashboard,
@@ -15,6 +15,8 @@ import {
 } from '../pages';
 import EquipePage from '../pages/TeamPage/TeamPage';
 import AuthChecker from '../utils/AuthChecker';
+
+const userData = useGetStoreData('user');
 
 // pages
 export const pages = [
@@ -61,12 +63,6 @@ export const pages = [
 
 export const overviewMenu = [
   {
-    title: 'Add new team member',
-    subtitle: 'It is possible to add a new member to a team',
-    icon: <LuUserPlus2 size={20} />,
-    link: '/team',
-  },
-  {
     title: 'More words',
     subtitle: 'It is possible to add more word',
     icon: <RxLetterCaseCapitalize size={20} />,
@@ -78,7 +74,7 @@ export const overviewMenu = [
     icon: <TbReportAnalytics size={20} />,
   },
   {
-    title: '679',
+    title: userData.credit,
     subtitle: 'total number of words',
     icon: <RxLetterSpacing size={20} />,
   },

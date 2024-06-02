@@ -12,6 +12,7 @@ import CardWrapper from './CardWrapper/CardWrapper';
 import ProfileInfo from './profile/ProfileInfo';
 import UpdatePassword from './profile/UpdatePassword';
 import ProgressStep from './progressStep/ProgressStep';
+import AddMemberCard from './AddMemberCard/AddMemberCard';
 
 export {
   NavBar,
@@ -28,4 +29,5 @@ export {
   ProfileInfo,
   UpdatePassword,
   ProgressStep,
+  AddMemberCard,
 };
