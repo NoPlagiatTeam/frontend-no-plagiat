@@ -11,6 +11,7 @@ import './Sign.css';
 import { routes } from '../../services/routes';
 import URL_SERVER from '../../services/routes';
 import { ProgressStep } from '../../components/molecules';
+import {useGetStoreData} from "../../hooks/useGetStoreData.js";
 
 const SignInPage = () => {
   // state
@@ -20,6 +21,7 @@ const SignInPage = () => {
   const [erreur, setErreur] = useState({ isErreur: false, message: '' });
   const [step, setStep] = useState(1);
   const [user, setUser] = useState({});
+  const userToken = useGetStoreData('token');
 
   const inputValues = [userName, userPassword];
 
@@ -70,7 +72,7 @@ const SignInPage = () => {
       };
 
       console.log(subscription);
-      const response = await fetch(URL_SERVER + routes[6].path, {
+      const response = await fetch(URL_SERVER + routes[7].path , {
         method: routes[5].typeRequest,
         body: JSON.stringify(subscription),
         headers: {
