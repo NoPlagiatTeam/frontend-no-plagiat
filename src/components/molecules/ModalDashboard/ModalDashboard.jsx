@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 const ModalDashboard = ({ card }) => {
   const Overlay = () => {
@@ -20,8 +20,8 @@ const ModalDashboard = ({ card }) => {
 
   return (
     <React.Fragment>
-      {ReactDOM.createPortal(<Overlay />, document.getElementById("overlay"))}
-      {ReactDOM.createPortal(<ModaLCard />, document.getElementById("card"))}
+      {ReactDOM.createPortal(<Overlay />, document.getElementById('overlay'))}
+      {ReactDOM.createPortal(<ModaLCard />, document.getElementById('card'))}
     </React.Fragment>
   );
 };

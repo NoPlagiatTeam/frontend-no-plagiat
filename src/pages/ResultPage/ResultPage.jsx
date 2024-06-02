@@ -8,13 +8,15 @@ import html2canvas from 'html2canvas';
 import { NavBar, Reference, StatisticGraph } from '../../components/molecules';
 import { BigText, SmallText } from '../../components/atoms';
 import { themeCtx } from '../../context/ThemeContext';
+import URL_SERVER from '../../services/routes';
 
 const Resultpage = () => {
   // getLocalstorage
   const statData = useGetStoreData('result');
   const plagiatResult = useGetStoreData('plagiatResult');
   const references = useGetStoreData('references');
-
+  const userToken = useGetStoreData('token');
+  const userData = useGetStoreData('user');
   // theme context
   const darkCtx = themeCtx();
 
@@ -24,6 +26,29 @@ const Resultpage = () => {
   // plagiarized phrases and document text
   const plagiarizedPhrases = plagiatResult.similarityResults.plagiarizedPhrases;
   const text = plagiatResult.similarityResults.text;
+
+  // send pdf to backend
+  const sendPdfHandler = async (generateDoc) => {
+    const formData = new FormData();
+    formData.append('rapport', generateDoc, 'document.pdf');
+    formData.append('userId', userData.id);
+
+    try {
+      console.log(generateDoc);
+      const response = await fetch(URL_SERVER + '/api/rapport/add', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Authorization: 'Bearer ' + userToken,
+        },
+      });
+
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // download pdf rapport
 
@@ -43,9 +68,8 @@ const Resultpage = () => {
 
       const pdf = new jsPdf('p', 'pt', [contentWidth, contentHeight]);
       pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight);
-      console.log(
-        pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight)
-      );
+      const pdfOutput = pdf.output('blob');
+      sendPdfHandler(pdfOutput);
 
       setIsLoading(false);
       pdf.save('rapport-NoPlagiat-' + getDate());

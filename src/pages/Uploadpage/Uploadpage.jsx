@@ -155,9 +155,8 @@ const Uploadpage = () => {
       });
 
       if (nbmot) {
-        let newCredit = userCredit - nbmot;
-        setUserCredit(newCredit);
-        console.log(userCredit, nbmot);
+        userData.credit = userCredit - nbmot;
+        storageData(userData, 'user');
       }
 
       const secondResult = await res.json();

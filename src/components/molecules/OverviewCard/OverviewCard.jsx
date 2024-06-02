@@ -2,11 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { themeCtx } from '../../../context/ThemeContext';
 
-const OverviewCard = ({ icon, title, subtitle, link }) => {
+const OverviewCard = ({ icon, title, subtitle, link, onClick }) => {
   const darkCtx = themeCtx();
 
   return (
     <Link
+      onClick={onClick}
       to={link}
       className={`cursor-pointer flex items-start gap-3 w-full rounded-lg ${
         darkCtx.isDark

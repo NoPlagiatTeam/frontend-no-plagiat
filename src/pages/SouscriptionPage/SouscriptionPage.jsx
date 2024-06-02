@@ -9,22 +9,27 @@ import {
 import { Errorbar } from '../../components/atoms/index.js';
 import { getUserDataFromStorage } from '../../utils/getUserFromStorage.js';
 import { themeCtx } from '../../context/ThemeContext.jsx';
+import {useGetStoreData} from "../../hooks/useGetStoreData.js";
 
 const SouscriptionPage = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [souscriptionData, setSouscriptionData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [erreur, setErreur] = useState({ isErreur: false, message: '' });
-  const [formules, setFormules] = useState({});
+  const userToken = useGetStoreData('token');
   const userData = getUserDataFromStorage('user');
   const darkCtx = themeCtx();
 
   useEffect(() => {
     const fetchSouscriptionData = async () => {
       setLoading(true);
-      const response = await getSouscriptionUser(
-        URL_SERVER + routes[6].path + userData.id
-      );
+      let response = await fetch(URL_SERVER + routes[6].path + userData.id , {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + userToken,
+        },
+      });
+      response = await response.json()
       if (response.data) {
         setSouscriptionData(response.data);
         setLoading(false);
@@ -61,13 +66,7 @@ const SouscriptionPage = () => {
     >
       <Sidebar setOpen={setIsOpen} open={isOpen} itempage={3} />
       <Errorbar erreur={erreur.isErreur} message={erreur.message} />
-      {/* <div className="flex flex-col items-center p-2 mt-9">
-          <h1 className="font-bold ml-9 text-2xl"> {">"}Souscription </h1>
-        </div> */}
-
-      {loading ? (
         <p>Chargement en cours...</p>
-      ) : (
         <div className={`flex justify-center py-8  w-full`}>
           <div className=" shadow-md sm:rounded-lg">
             <table className="text-sm  text-gray-500 dark:text-gray-400">
@@ -111,14 +110,7 @@ const SouscriptionPage = () => {
               </tbody>
             </table>
           </div>
-          {/*<button*/}
-          {/*    className="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:ring-orange-200 font-medium rounded-lg text-sm px-5 py-2.5  focus:outline-none"*/}
-          {/*    onClick={() => renewSouscription(souscriptionData.formule, userData)}*/}
-          {/*>*/}
-          {/*  Renouveler*/}
-          {/*</button>*/}
         </div>
-      )}
     </div>
   );
 };
