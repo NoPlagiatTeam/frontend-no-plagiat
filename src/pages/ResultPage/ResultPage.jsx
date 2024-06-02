@@ -28,27 +28,27 @@ const Resultpage = () => {
   const text = plagiatResult.similarityResults.text;
 
   // send pdf to backend
-  const sendPdfHandler = async (generateDoc) => {
-    const formData = new FormData();
-    formData.append('rapport', generateDoc, 'document.pdf');
-    formData.append('userId', userData.id);
+  // const sendPdfHandler = async (generateDoc) => {
+  //   const formData = new FormData();
+  //   formData.append('rapport', generateDoc, 'document.pdf');
+  //   formData.append('userId', userData.id);
 
-    try {
-      console.log(generateDoc);
-      const response = await fetch(URL_SERVER + '/api/rapport/add', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Authorization: 'Bearer ' + userToken,
-        },
-      });
+  //   try {
+  //     console.log(generateDoc);
+  //     const response = await fetch(URL_SERVER + '/api/rapport/add', {
+  //       method: 'POST',
+  //       body: formData,
+  //       headers: {
+  //         Authorization: 'Bearer ' + userToken,
+  //       },
+  //     });
 
-      const data = await response.json();
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     const data = await response.json();
+  //     console.log(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   // download pdf rapport
 
@@ -70,13 +70,13 @@ const Resultpage = () => {
         const pdf = new jsPdf('p', 'pt', [contentWidth, contentHeight]);
         pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight);
         generateDoc = pdf.output('blob');
-        sendPdfHandler(pdfOutput);
+        // sendPdfHandler(pdfOutput);
 
         // pdf.save('rapport-NoPlagiat-' + getDate());
       });
 
       const formData = new FormData();
-      formData.append('rapport', generateDoc, `Rapport${new Date.now()}.pdf`);
+      formData.append('rapport', generateDoc, `Rapport${Date.now()}.pdf`);
       formData.append('userId', userData.id);
 
       const response = await fetch(URL_SERVER + '/api/rapport/add', {
