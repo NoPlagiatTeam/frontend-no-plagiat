@@ -52,28 +52,48 @@ const Resultpage = () => {
 
   // download pdf rapport
 
-  const generatePDF = () => {
+  const generatePDF = async () => {
     const input = document.getElementById('pdf-content');
 
     const contentWidth = input.offsetWidth;
     const contentHeight = input.offsetHeight;
+    let generateDoc;
 
     setIsLoading(true);
+    try {
+      html2canvas(input, {
+        scrollY: -window.scrollY,
+        height: contentHeight,
+      }).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
 
-    html2canvas(input, {
-      scrollY: -window.scrollY,
-      height: contentHeight,
-    }).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPdf('p', 'pt', [contentWidth, contentHeight]);
+        pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight);
+        generateDoc = pdf.output('blob');
+        sendPdfHandler(pdfOutput);
 
-      const pdf = new jsPdf('p', 'pt', [contentWidth, contentHeight]);
-      pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight);
-      const pdfOutput = pdf.output('blob');
-      sendPdfHandler(pdfOutput);
+        // pdf.save('rapport-NoPlagiat-' + getDate());
+      });
 
+      const formData = new FormData();
+      formData.append('rapport', generateDoc, `Rapport${new Date.now()}.pdf`);
+      formData.append('userId', userData.id);
+
+      const response = await fetch(URL_SERVER + '/api/rapport/add', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Authorization: 'Bearer ' + userToken,
+        },
+      });
+
+      const data = await response.json();
+      console.log(data);
       setIsLoading(false);
-      pdf.save('rapport-NoPlagiat-' + getDate());
-    });
+    } catch (err) {
+      console.log(err);
+      setIsLoading(false);
+    }
   };
 
   return (
