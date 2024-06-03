@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
-import { getDate } from '../../utils/getDate';
-import { useGetStoreData } from '../../hooks/useGetStoreData';
-import { lowerCase } from '../../utils/lowerCase';
-import jsPdf from 'jspdf';
-import html2canvas from 'html2canvas';
+import React, { useState } from "react";
+import { getDate } from "../../utils/getDate";
+import { useGetStoreData } from "../../hooks/useGetStoreData";
+import { lowerCase } from "../../utils/lowerCase";
+import jsPdf from "jspdf";
+import html2canvas from "html2canvas";
 
-import { NavBar, Reference, StatisticGraph } from '../../components/molecules';
-import { BigText, SmallText } from '../../components/atoms';
-import { themeCtx } from '../../context/ThemeContext';
+import { NavBar, Reference, StatisticGraph } from "../../components/molecules";
+import { BigText, SmallText } from "../../components/atoms";
+import { themeCtx } from "../../context/ThemeContext";
+
+import { routes } from "../../services/routes";
+import URL_SERVER from "../../services/routes";
 
 const Resultpage = () => {
   // getLocalstorage
-  const statData = useGetStoreData('result');
-  const plagiatResult = useGetStoreData('plagiatResult');
-  const references = useGetStoreData('references');
+  const statData = useGetStoreData("result");
+  const plagiatResult = useGetStoreData("plagiatResult");
+  const references = useGetStoreData("references");
 
   // theme context
   const darkCtx = themeCtx();
 
+  // current user
+  const userData = useGetStoreData("user");
   // state
   const [isloading, setIsLoading] = useState(false);
 
@@ -27,36 +32,62 @@ const Resultpage = () => {
 
   // download pdf rapport
 
+  const sendPDFToServer = async (pdfFile) => {
+    const Rapport = {
+      titre: pdfFile,
+      userId: userData.id,
+      rapport: pdfFile,
+    };
+    try {
+      const response = await fetch(URL_SERVER + routes[8].path, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(Rapport),
+      });
+      if (response.ok) {
+        console.log("PDF envoyé avec succès!");
+      } else {
+        console.error("Erreur lors de l'envoi du PDF:", response.status);
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du PDF catch:", error);
+    }
+  };
+
   const generatePDF = () => {
-    const input = document.getElementById('pdf-content');
+    const input = document.getElementById("pdf-content");
 
     const contentWidth = input.offsetWidth;
     const contentHeight = input.offsetHeight;
 
     setIsLoading(true);
 
-    html2canvas(input, {
-      scrollY: -window.scrollY,
-      height: contentHeight,
-    }).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
+    html2canvas(input, { scrollY: -window.scrollY, height: contentHeight })
+      .then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
 
-      const pdf = new jsPdf('p', 'pt', [contentWidth, contentHeight]);
-      pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight);
-      console.log(
-        pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight)
-      );
+        const pdf = new jsPdf("p", "pt", [contentWidth, contentHeight]);
+        pdf.addImage(imgData, "PNG", 0, 0, contentWidth, contentHeight);
 
-      setIsLoading(false);
-      pdf.save('rapport-NoPlagiat-' + getDate());
-    });
+        setIsLoading(false);
+        const pdfFile = "rapport-NoPlagiat-" + getDate() + ".pdf"; // Créez le nom du fichier PDF
+        pdf.save(pdfFile); // Téléchargez le PDF avec le nom spécifié
+        console.log("Nom du PDF téléchargé:", pdfFile); // Affichez le nom du PDF dans la console
+        sendPDFToServer(pdfFile);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.error("Erreur lors de la génération du PDF:", error);
+      });
   };
 
   return (
     <React.Fragment>
       <div
         className={
-          darkCtx.isDark ? 'bg-black text-gray-400' : 'bg-white text-black'
+          darkCtx.isDark ? "bg-black text-gray-400" : "bg-white text-black"
         }
       >
         <NavBar isloading={isloading} isDownload={true} onClick={generatePDF} />
@@ -79,7 +110,7 @@ const Resultpage = () => {
           <div className="">
             <div
               className={`my-8 py-4 px-5 rounded-lg border ${
-                darkCtx.isDark ? 'border-[#212121]' : 'border-gray-200'
+                darkCtx.isDark ? "border-[#212121]" : "border-gray-200"
               }`}
             >
               <SmallText title="Content" />
@@ -89,8 +120,8 @@ const Resultpage = () => {
                     key={index}
                     className={
                       plagiarizedPhrases.includes(phrase)
-                        ? 'bg-red-400 text-gray-100'
-                        : 'text-gray-600'
+                        ? "bg-red-400 text-gray-100"
+                        : "text-gray-600"
                     }
                   >
                     {phrase}
